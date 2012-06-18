@@ -87,10 +87,9 @@
     dict = [NSMutableDictionary dictionary];
     [dict setObject:CONFIG_KEY forKey:@"config_key"]; // config_key パラメータ(必須)。設定キー 
     [dict setObject:deviceToken forKey:@"device_token"]; // device_token パラメータ(必須)。デバイストークン 
-    //[dict setObject:[[UIDevice currentDevice] uniqueIdentifier] forKey:@"device_id"]; // device_id パラメータ。UDID(初期値: 1)
-    //[dict setObject:@"1" forKey:@"category_id"]; // category_id パラメータ。カテゴリID。1桁の整数の配列(初期値:1)
+    [dict setObject:@"1" forKey:@"device_id"]; // device_id パラメータ。UDID(初期値: 1)
+    [dict setObject:@"1" forKey:@"category_id"]; // category_id パラメータ。カテゴリID。1桁の整数の配列(初期値:1)
     [dict setObject:@"1" forKey:@"mode"]; // mode パラメータ(必須)。デバイストークン(登録の場合:1 削除の場合:2) 
-    [dict setObject:@"1" forKey:@"type"]; // type パラメータ(必須)。OSの種類(iPhoneの場合:1 Androidの場合:2)
     
     NSData* data;
     data = [self createPostDate:dict];
@@ -112,16 +111,15 @@
     dict = [NSMutableDictionary dictionary];
     [dict setObject:CONFIG_KEY forKey:@"config_key"]; // config_key パラメータ(必須)。設定キー 
     [dict setObject:deviceToken forKey:@"device_token"]; // device_token パラメータ(必須)。デバイストークン 
-    //[dict setObject:[[UIDevice currentDevice] uniqueIdentifier] forKey:@"device_id"]; // device_id パラメータ。UDID(初期値: 1)
-    //[dict setObject:@"1" forKey:@"category_id"]; // category_id パラメータ。カテゴリID。1桁の整数の配列(初期値:1)
+    [dict setObject:@"1" forKey:@"device_id"]; // device_id パラメータ。UDID(初期値: 1)
+    [dict setObject:@"1" forKey:@"category_id"]; // category_id パラメータ。カテゴリID。1桁の整数の配列(初期値:1)
     [dict setObject:@"2" forKey:@"mode"]; // mode パラメータ(必須)。デバイストークン(登録の場合:1 削除の場合:2) 
-    [dict setObject:@"1" forKey:@"type"]; // type パラメータ(必須)。OSの種類(iPhoneの場合:1 Androidの場合:2)
     
     NSData* data;
     data = [self createPostDate:dict];
     
     // デバイストークンを指定のサーバに送信する。
-    NSURL* url = [NSURL URLWithString:@"http://core-asp.com/push/api/device_regist.php"];
+    NSURL* url = [NSURL URLWithString:@"http://api.core-asp.com/iphone_token_regist.php"];
     NSMutableURLRequest* req;
     req = [NSMutableURLRequest requestWithURL:url];
     [req setHTTPMethod:@"POST"];
