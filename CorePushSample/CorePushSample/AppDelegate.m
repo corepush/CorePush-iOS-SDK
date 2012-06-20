@@ -213,6 +213,12 @@
     }
 }
 
+// アプリがバックグランド遷移した時に呼ばれる。
+- (void)applicationDidEnterBackground:(UIApplication *)application
+{
+    application.applicationIconBadgeNumber = 0;
+}
+
 // アプリをフォアグランドで起動した時に呼ばれる。
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     //バッジアイコンの数値をリセット
