@@ -6,21 +6,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CorePush/CorePushManager.h>
 
 @class ViewController;
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate> {
-    NSMutableData* receivedData_;
+@interface AppDelegate : UIResponder <UIApplicationDelegate, CorePushManagerDelegate> {
+
 }
 
 @property (retain, nonatomic) UIWindow *window;
-
 @property (retain, nonatomic) ViewController *viewController;
-
-@property (retain, nonatomic) NSMutableData* receivedData;
-
-- (NSData*) createPostDate:(NSDictionary *)dict;
-- (void)sendDeviceTokenToServer:(NSString*)deviceToken;
-- (void)removeDeviceTokenToServer:(NSString*)deviceToken;
 
 @end

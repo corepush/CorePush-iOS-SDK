@@ -1,4 +1,30 @@
-<h1>iOSCorePushSample</h1><h2>概要</h2><p>iOSCorePushSample は、プッシュ通知ASPサービス「<a href="http://core-asp.com/">CORE PUSH</a>」のiOS用のサンプルプロジェクトになります。<p><h2>クイックスタート</h2><h3>設定キーの設定</h3><p><a href="http://core-asp.com/login.php">Core Push管理画面</a> にログインし、ホーム画面からiPhoneアプリの設定キーを確認してください。この設定キーをAppDelegate.m の CONFIG_KEY の定数に指定します。</p><pre><code>#define CONFIG_KEY @"9b8cdedbfa669cf03c31c4f1807ddcce"</code></pre></article>
+# Core Push iOS SDK
 
-<h2>API</h2>
-<a href="http://core-asp.com/corepush/api.php">http://core-asp.com/corepush/api.php</a> を参照してください。
+##概要
+
+Core Push iOS SDK は、プッシュ通知ASPサービス「CORE PUSH」の iOS用のSDKになります。## 動作条件* iOS4.0以上が動作対象になります。
+* Xcodeのプロジェクトのターゲットを選択し、Build Phases の Link Binary With Libraries から SDK/CorePush.framework を追加してください。	##アプリの通知設定###CORE PUSHの設定キーの指定Core Push管理画面 にログインし、ホーム画面からiOSアプリの設定キーを確認してください。 この設定キーをCorePushManager#setConfigKey で指定します。
+	[[CorePushManager shared] setConfigKey:@"XXXXXXXXXX"];###CorePushManagerクラスのデリゲートクラスの指定
+アプリケーションの動作状態に応じて通知をハンドリングするために、CorePushManagerDelegateプロトコルを実装した
+クラスを CorePushManager#setDelegate で指定します。	 [[CorePushManager shared] setDelegate:self];     ##デバイスの通知登録解除デバイスが通知を受信できるようにするには、CORE PUSH にデバイストークンを送信します。またデバイスが通知を受信できないようにするには、CORE PUSH からデバイストークンを削除します。###通知登録
+CorePushManager#registerForRemoteNotifications を呼び出すことで APNSサーバからデバイストークンを取得し、
+デバイストークンを CORE PUSH に送信します。
+	[[CorePushManager shared] registerForRemoteNotifications];
+本メソッドはアプリの初回起動時かON/OFFスイッチなどで通知をONにする場合に使用してください。	###通知解除
+CorePushManager#unregisterDeviceToken を呼び出すことで CORE PUSH からデバイストークンを削除します。
+	[[CorePushManager shared] unregisterDeviceToken];
+本メソッドはON/OFFスイッチなどで通知をOFFにする場合に使用してください。		##通知受信後の動作設定
+アプリケーションの動作状態に応じて通知をハンドリングすることができます。	###バックグランド状態で動作中に通知から起動した場合
+UIApplication#application:didReceiveRemoteNotification: にて、以下のメソッドを呼び出します。
+	[[CorePushManager shared] handleRemoteNotification:userInfo]		  アプリケーションがバックグランド状態で動作中の場合は、CorePushManagerDelegate#handleBackgroundNotification が呼び出されます。###フォアグラウンド状態で動作中に通知を受信した場合
+UIApplication#application:didReceiveRemoteNotification: にて、以下のメソッドを呼び出します。
+	[[CorePushManager shared] handleRemoteNotification:userInfo]
+アプリケーションがフォアグラウンド状態で動作中の場合は、CorePushManagerDelegate#handleForegroundNotification が呼び出されます。
+###アプリケーションが動作していない状態で通知から起動した場合
+UIApplication#application:didFinishLaunchingWithOptions にて、以下のメソッドを呼び出します。
+
+	[[CorePushManager shared] handleLaunchingNotificationWithOption:launchOptions];
+
+アプリケーションが動作していない状態で通知から起動した場合はCorePushManagerDelegate#handleLaunchingNotification が呼び出されます。	
+	
+	

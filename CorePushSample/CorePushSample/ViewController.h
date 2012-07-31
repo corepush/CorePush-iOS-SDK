@@ -22,4 +22,12 @@
 // スイッチをON•OFFに切り替えた時に呼ばれる
 - (IBAction)valueChangeNotificationSwitch:(id)sender;
 
+//*********************************************************************************************
+// デバイストークの登録・削除の通知で呼び出すメソッド
+//- (void)registerTokenRequestSuccess;
+//- (void)registerTokenRequestFail;
+//- (void)unregisterTokenRequestSuccess;
+//- (void)unregisterTokenRequestFail;
+//*********************************************************************************************
+
 @end

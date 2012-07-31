@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		420EF83D15C77E0F0025E920 /* CorePush.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 420EF83C15C77E0F0025E920 /* CorePush.framework */; };
 		86ED473B14B188A4000F6001 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86ED473A14B188A4000F6001 /* UIKit.framework */; };
 		86ED473D14B188A4000F6001 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86ED473C14B188A4000F6001 /* Foundation.framework */; };
 		86ED473F14B188A4000F6001 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86ED473E14B188A4000F6001 /* CoreGraphics.framework */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		420EF83C15C77E0F0025E920 /* CorePush.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CorePush.framework; path = ../SDK/CorePush.framework; sourceTree = "<group>"; };
 		86ED473614B188A4000F6001 /* CorePushSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CorePushSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		86ED473A14B188A4000F6001 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		86ED473C14B188A4000F6001 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -38,6 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				420EF83D15C77E0F0025E920 /* CorePush.framework in Frameworks */,
 				86ED473B14B188A4000F6001 /* UIKit.framework in Frameworks */,
 				86ED473D14B188A4000F6001 /* Foundation.framework in Frameworks */,
 				86ED473F14B188A4000F6001 /* CoreGraphics.framework in Frameworks */,
@@ -67,6 +70,7 @@
 		86ED473914B188A4000F6001 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				420EF83C15C77E0F0025E920 /* CorePush.framework */,
 				86ED473A14B188A4000F6001 /* UIKit.framework */,
 				86ED473C14B188A4000F6001 /* Foundation.framework */,
 				86ED473E14B188A4000F6001 /* CoreGraphics.framework */,
@@ -193,9 +197,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CODE_SIGN_IDENTITY = "iPhone Developer: hiroyuki marubayashi (266DXU95ZY)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: hiroyuki marubayashi (266DXU95ZY)";
+				ARCHS = (
+					"$(ARCHS_STANDARD_32_BIT)",
+					armv6,
+				);
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -210,8 +217,8 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.1;
-				PROVISIONING_PROFILE = "8F19A99D-53CC-47CA-A4BA-239317082A05";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8F19A99D-53CC-47CA-A4BA-239317082A05";
+				PROVISIONING_PROFILE = "5CE99423-77CA-41C7-A8A2-E483B45A2DD4";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "5CE99423-77CA-41C7-A8A2-E483B45A2DD4";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -220,9 +227,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CODE_SIGN_IDENTITY = "iPhone Developer: hiroyuki marubayashi (266DXU95ZY)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: hiroyuki marubayashi (266DXU95ZY)";
+				ARCHS = (
+					"$(ARCHS_STANDARD_32_BIT)",
+					armv6,
+				);
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -231,8 +241,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "8F19A99D-53CC-47CA-A4BA-239317082A05";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B8DAAA90-CF76-47F3-9CDD-410091C177B9";
+				PROVISIONING_PROFILE = "5CE99423-77CA-41C7-A8A2-E483B45A2DD4";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "5CE99423-77CA-41C7-A8A2-E483B45A2DD4";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -241,14 +251,24 @@
 		86ED475514B188A4000F6001 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: hiroyuki marubayashi (266DXU95ZY)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: hiroyuki marubayashi (266DXU95ZY)";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/CorePushSample\"",
+					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../SDK\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CorePushSample/CorePushSample-Prefix.pch";
 				INFOPLIST_FILE = "CorePushSample/CorePushSample-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/CorePushSample\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "B8DAAA90-CF76-47F3-9CDD-410091C177B9";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B8DAAA90-CF76-47F3-9CDD-410091C177B9";
+				PROVISIONING_PROFILE = "5CE99423-77CA-41C7-A8A2-E483B45A2DD4";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "5CE99423-77CA-41C7-A8A2-E483B45A2DD4";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -256,14 +276,24 @@
 		86ED475614B188A4000F6001 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: hiroyuki marubayashi (266DXU95ZY)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: hiroyuki marubayashi (266DXU95ZY)";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/CorePushSample\"",
+					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../SDK\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CorePushSample/CorePushSample-Prefix.pch";
 				INFOPLIST_FILE = "CorePushSample/CorePushSample-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/CorePushSample\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "B8DAAA90-CF76-47F3-9CDD-410091C177B9";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B8DAAA90-CF76-47F3-9CDD-410091C177B9";
+				PROVISIONING_PROFILE = "5CE99423-77CA-41C7-A8A2-E483B45A2DD4";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "5CE99423-77CA-41C7-A8A2-E483B45A2DD4";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
