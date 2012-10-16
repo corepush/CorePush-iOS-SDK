@@ -197,10 +197,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					"$(ARCHS_STANDARD_32_BIT)",
-					armv6,
-				);
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
@@ -216,10 +213,9 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.1;
-				PROVISIONING_PROFILE = "5CE99423-77CA-41C7-A8A2-E483B45A2DD4";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "5CE99423-77CA-41C7-A8A2-E483B45A2DD4";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				SDKROOT = iphoneos;
+				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Debug;
 		};
@@ -227,10 +223,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					"$(ARCHS_STANDARD_32_BIT)",
-					armv6,
-				);
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = YES;
@@ -239,18 +232,18 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "5CE99423-77CA-41C7-A8A2-E483B45A2DD4";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "5CE99423-77CA-41C7-A8A2-E483B45A2DD4";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Release;
 		};
 		86ED475514B188A4000F6001 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -267,8 +260,6 @@
 					"\"$(SRCROOT)/CorePushSample\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5CE99423-77CA-41C7-A8A2-E483B45A2DD4";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "5CE99423-77CA-41C7-A8A2-E483B45A2DD4";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -276,6 +267,7 @@
 		86ED475614B188A4000F6001 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -292,8 +284,6 @@
 					"\"$(SRCROOT)/CorePushSample\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5CE99423-77CA-41C7-A8A2-E483B45A2DD4";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "5CE99423-77CA-41C7-A8A2-E483B45A2DD4";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
