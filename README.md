@@ -132,7 +132,7 @@ CorePushNotificationHistoryManager#setRead を呼び出すことで通知履歴�
     [popupView show];
 
 ##ユーザー間プッシュ通知
-ユーザー間のプッシュ通知を実現するには、事前にアプリ側でユーザーのデバイストークンのCORE PUSHへの登録とユーザー属性の御社サーバへの登録を行う必要があります。
+ユーザー間のプッシュ通知を実現するには、事前にアプリ側でユーザーのデバイストークンのCORE PUSHへの登録とユーザー属性の御社サーバへの登録を行う必要があります。全体のイメージ図につきましては、<a href="http://developer.core-asp.com/api_image.php">http://developer.core-asp.com/api_image.php</a> をご参照ください。
 ### CORE PUSHへのデバイストークンの登録
 
 CorePushManager#registerForRemtoeNotifications で通知の登録を行う前に、CorePushManager#setAppUserIdでアプリ内のユーザーIDを指定します。
