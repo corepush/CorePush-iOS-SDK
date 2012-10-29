@@ -131,5 +131,32 @@ CorePushNotificationHistoryManager#setRead を呼び出すことで通知履歴�
     // ポップアップウインドウを表示
     [popupView show];
 
-	
-	
+##ユーザー間連携
+ユーザー間の通知の連携を行うには、事前にアプリ側でユーザーのデバイストークンのCORE PUSHへの登録とユーザー属性の御社サーバへの登録を行う必要があります。
+### CORE PUSHへのデバイストークンの登録
+
+CorePushManager#registerForRemtoeNotifications で通知の登録を行う前に、CorePushManager#setAppUserIdでアプリ内のユーザーIDを指定します。
+	//アプリのユーザーIDを登録	[[CorePushManager shared] setAppUserId:@"UserId"];	//デバイストークンの登録	[[CorePushManager shared] registerForRemoteNotifications];
+  
+上記により、api.core-asp.com/iphone_token_regist.php のトークン登録APIに
+対して、app_user_id のパラメータが送信され、アプリ内のユーザーIDとデバイストークンが
+紐づいた形でDBに保存されます。
+  ### 御社サーバへのユーザー属性の登録
+CorePushManager#registerUserAttributes:api: で御社サーバにユーザー属性の送信を行う前に
+、CorePushManager#setAppUserIdでアプリ内のユーザーIDを指定します。	//アプリのユーザーIDを登録	[[CorePushManager shared] setAppUserId:@"UserId"];
+
+ユーザー属性を定義した配列を作成します。
+   
+    //ユーザー属性の配列を作成。例) 男性、10台、学生 の属性を配列に格納
+    NSArray* attributes = [NSArray arrayWithObjects:@"man",@"teen",@"student", nil];
+
+ユーザー属性を送信する御社サーバ上のAPIのURLを指定します。
+
+	//ユーザー属性を送信するAPIのURLを指定
+    NSString* userAttributeApi = @"ユーザ属性を送信するAPIのURL";
+
+作成したユーザー属性を定義した配列とユーザー属性を送信するAPIのURLを引数として CorePushManager#registerUserAttributes:api: を呼び出し、御社サーバにユーザー属性の送信を行います。
+
+	//ユーザー属性の送信
+    [[CorePushManager shared] registerUserAttributes:attributes api:userAttributeApi];
+
