@@ -49,9 +49,16 @@ CorePushNotificationHistoryManager#requestNotificationHistory を呼び出すこ
   
 上記の配列により、個々の通知履歴の CorePushNotificationHistoryModel オブジェクトを取得できます。CorePushNotificationHistoryModelオブジェクトには、履歴ID、通知メッセージ、通知日時、リッチ通知URLが格納されます。
 
+	// 例) 451
 	NSString* historyId = notificationHistoryModel.historyId;
+	
+	// 例) CORE PUSH からのお知らせ!
 	NSString* message = notificationHistoryModel.message;
+
+	// 例) http://core-asp.com
 	NSString* url = notificationHistoryModel.url;
+
+	// 例) 2012-08-18 17:48:30
 	NSString* regDate = notificationHistoryModel.regDate;
 	
 ###通知履歴の未読管理
@@ -70,9 +77,9 @@ CorePushNotificationHistoryManager#setRead を呼び出すことで通知履歴�
 	 //タブのバッジ数に未読数を設定する場合
 	 self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d", unreadNumber];
 	 
-	 //タブのバッジ数に未読数を設定する場合
+	 //アイコンのバッジ数に未読数を設定する場合
 	 [CorePushManager setApplicationIconBadgeNumber:unreadNumber];	
-##リッチ通知画面の表示
+##リッチ通知画面(ポップアップウインドウ)の表示
 
 リッチ通知を受信した場合は、通知オブジェクト内にリッチ通知用のURLが含まれます。
 リッチ通知用のURLは、以下の方法で取得できます。
@@ -82,13 +89,24 @@ CorePushNotificationHistoryManager#setRead を呼び出すことで通知履歴�
 上記のURLをリッチ通知画面で表示するには、SDKのCorePushPopupViewオブジェクトを使用します。
 以下は CorePushRichSampleプロジェクトからの抜粋になります。
 
+	// ポップアップウインドウを追加する親ビューを取得
     UIWindow* window = (UIWindow*)[[UIApplication sharedApplication] delegate].window;
+    
+    // ポップアップウインドウの作成
     CorePushPopupView* popupView=[[CorePushPopupView alloc] initWithFrame:CGRectMake(0, 100, 300, 400)
                                                            withParentView:window];
+                                                           
+    // ポップアップウインドウのタイトルを設定                                                   
     NSString* appName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"];
     popupView.titleBarText = [NSString stringWithFormat:@"%@からのお知らせ", appName];
+    
+    // ポップアップウインドウの位置を親ビューの中心に設定
     popupView.center = window.center;
+    
+    // ポップアップビューのレイアウトを構築
     [popupView buildLayoutSubViews];
+    
+    // リッチ通知URLを表示するWebViewを作成
     UIWebView* webView =[[UIWebView alloc] initWithFrame:CGRectMake(0,0,
 									popupView.contentView.frame.size.width,
 									popupView.contentView.frame.size.height)];
@@ -100,6 +118,7 @@ CorePushNotificationHistoryManager#setRead を呼び出すことで通知履歴�
     [popupView.contentView addSubview:webView];
     [webView release];
     
+    // WebViewのコンテンツ画面をタップ時にSafariを起動するように設定
     UIButton* safariLaunchButton =[UIButton buttonWithType:UIButtonTypeCustom];
     safariLaunchButton.frame = CGRectMake(0,0,
                                           popupView.contentView.frame.size.width,
@@ -109,6 +128,7 @@ CorePushNotificationHistoryManager#setRead を呼び出すことで通知履歴�
     
     [popupView.contentView addSubview:safariLaunchButton];
     
+    // ポップアップウインドウを表示
     [popupView show];
 
 	
