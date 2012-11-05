@@ -131,6 +131,24 @@ CorePushNotificationHistoryManager#setRead を呼び出すことで通知履歴�
     // ポップアップウインドウを表示
     [popupView show];
 
+
+##現在位置情報の送信
+
+CorePushManager#reportCurrentLocation 、現在の位置情報(緯度、経度)をパラメータに付加し、CORE PUSHサーバにデバイストークンの送信を行います。位置情報の取得するには プロジェクトに CoreLocation.framework を追加しておく必要があります。また、位置情報の送信を行うには、CorePushManager#setLocationServiceEnabled で位置情報の取得を有効化する必要があります。
+
+    //現在地の位置情報を送信する。
+    [[CorePushManager shared] setLocationServiceEnabled:YES];
+    [[CorePushManager shared] reportCurrentLocation];
+
+##カテゴリの設定
+デバイストークン登録APIの category_id パラメータの設定を行うことができます。パラメータの設定を行うには、
+CorePushManager#setCategoryIds で カテゴリID(文字列型)のリストを指定します。以下はカテゴリIDのリストの作成例になります。
+
+	 NSMutableArray* categoryids = [NSMutableArray arrayWithObjects:@"カテゴリ_01",@"カテゴリ_02", @"カテゴリ_04", @"カテゴリ_06", nil];
+	[[CorePushManager shared] setCategoryIds:categoryids];
+
+上記カテゴリの設定後にデバイストークンを送信した場合、設定したcategory_id パラメータの値をCORE PUSHサーバにPOSTします。
+(category_idパラメータを設定しない場合のデフォルト値は 1 になります。)
 ##ユーザー間プッシュ通知
 ユーザー間のプッシュ通知を実現するには、事前にアプリ側でユーザーのデバイストークンのCORE PUSHへの登録とユーザー属性の御社サーバへの登録を行う必要があります。全体のイメージ図につきましては、<a href="http://developer.core-asp.com/api_image.php">http://developer.core-asp.com/api_image.php</a> をご参照ください。
 ### CORE PUSHへのデバイストークンの登録
