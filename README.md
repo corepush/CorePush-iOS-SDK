@@ -144,7 +144,8 @@ CorePushManager#reportCurrentLocation 、現在の位置情報(緯度、経度)�
 デバイストークン登録APIの category_id パラメータの設定を行うことができます。パラメータの設定を行うには、
 CorePushManager#setCategoryIds で カテゴリID(文字列型)のリストを指定します。以下はカテゴリIDのリストの作成例になります。
 
-	 NSMutableArray* categoryids = [NSMutableArray arrayWithObjects:@"カテゴリ_01",@"カテゴリ_02", @"カテゴリ_04", @"カテゴリ_06", nil];
+	//1:北海道、2:東北 3:関東、4:近畿
+	 NSMutableArray* categoryids = [NSMutableArray arrayWithObjects:@"1", @"2", @"3", @"4", nil];
 	[[CorePushManager shared] setCategoryIds:categoryids];
 
 上記カテゴリの設定後にデバイストークンを送信した場合、設定したcategory_id パラメータの値をCORE PUSHサーバにPOSTします。
