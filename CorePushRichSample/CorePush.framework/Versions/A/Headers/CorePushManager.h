@@ -2,12 +2,14 @@
 //  CorePushManager.h
 //  CorePush
 //
-
+//  Copyright (c) 2012 株式会社ブレスサービス. All rights reserved.
+//
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "CorePushRegisterTokenRequest.h"
 #import "CorePushUnregisterTokenRequest.h"
 #import "CorePushRegisterUserAttributesRequest.h"
+#import <CoreLocation/CoreLocation.h>
 
 /**
  * CorePushManagerクラスのデリゲートメソッドを定義したプロトコル
@@ -39,7 +41,7 @@
 /**
  * CORE PUSHのマネジャークラス
  */
-@interface CorePushManager : NSObject <CorePushManagerDelegate, CorePushRegisterTokenRequestDelegate, CorePushUnregisterTokenRequestDelegate, CorePushRegisterUserAttributesRequestDelegate> {
+@interface CorePushManager : NSObject <CorePushManagerDelegate, CorePushRegisterTokenRequestDelegate, CorePushUnregisterTokenRequestDelegate, CorePushRegisterUserAttributesRequestDelegate, CLLocationManagerDelegate> {
  
     id<CorePushManagerDelegate> delegate_;
     
@@ -48,8 +50,13 @@
     BOOL debugEnabled_;
     BOOL deviceIdEnabled_;
     BOOL deviceIdHashEnabled_;
+    BOOL locationServiceEnabled_;
+    BOOL isCategoryIdsDictionary_;
     NSMutableArray* categoryIds_;
+    NSMutableArray* categoryIdsDictionary_;
     NSString* appUserId_;
+    CLLocation* currentLocation_; // 現在の緯度経度
+    CLLocationManager *locationManager_;
 }
 
 @property (nonatomic, retain) NSString* configKey;
@@ -57,8 +64,14 @@
 @property (nonatomic, assign) BOOL debugEnabled;
 @property (nonatomic, assign) BOOL deviceIdEnabled;
 @property (nonatomic, assign) BOOL deviceIdHashEnabled;
+@property (nonatomic, assign) BOOL locationServiceEnabled;
+@property (nonatomic, assign) BOOL isCategoryIdsDictionary;
 @property (nonatomic, retain) NSMutableArray* categoryIds;
+@property (nonatomic, retain) NSMutableArray* categoryIdsDictionary;
 @property (nonatomic, retain) NSString* appUserId;
+@property (nonatomic, retain) CLLocation* currentLocation;
+@property (nonatomic, retain) CLLocationManager *locationManager;
+
 
 /// CorePushManagerDelegateプロトコルを実装したクラス
 @property (nonatomic, assign) id<CorePushManagerDelegate> delegate;
@@ -111,7 +124,7 @@
 
 /**
  * CORE PUSHのカテゴリIDを設定する。
- * @param categoryIds カテゴリIDの配列
+ * @param categoryIds CorePushCategoryModelの配列
  */
 - (void)setCategoryIds:(NSMutableArray *)categoryIds;
 
@@ -122,6 +135,11 @@
  */
 - (void)setAppUserId:(NSString*)appUserId;
 
+
+/**
+ * 現在の位置情報を送信する。
+ */
+- (void)reportCurrentLocation;
 
 /**
  * APNSの通知サービスにデバイスを登録する。

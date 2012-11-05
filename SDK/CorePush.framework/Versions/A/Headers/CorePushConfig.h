@@ -28,7 +28,6 @@ extern NSString* CorePushManagerRegisterUserAttributesRequestSuccessNotification
 /// ユーザー属性の登録失敗時の通知キー
 extern NSString* CorePushManagerRegisterUserAttributesRequestFailNotification;
 
-
 /// デバイストークン登録・削除API
 extern NSString* CorePushRegistTokenApi;
 
@@ -41,6 +40,27 @@ extern NSString* CorePushConfigKey;
 /// プッシュ通知の有効状態を保持するための UserDefadefaults のキー
 extern NSString* CorePushPushEnabledKey;
 
+/// デバッグの有効状態を保持するための UserDefadefaults のキー
+extern NSString* CorePushDebugEnabledKey;
+
+/// デバイスIDの有効状態を保持するための UserDefadefaults のキー
+extern NSString* CorePushDeviceIdEnabledKey;
+
+/// デバイスIDのハッシュ化の有効状態を保持するための UserDefadefaults のキー
+extern NSString* CorePushDeviceIdHashEnabledKey;
+
+
 /// デバイストークンの文字列を保持するための UserDefaults のキー
-extern NSString* CorePushDeviceTokenKey;     
+extern NSString* CorePushDeviceTokenKey;
+
+/// CorePushのLocationServiceを保持するための UserDefaults のキー
+extern NSString* CorePushLocationServiceEnabledKey;
+
+/// アプリ内のユーザーIDを保持するための UserDefaults のキー
+extern NSString* CorePushAppUserIdKey;
+
+/// カテゴリIDを保持するための UserDefaults のキー
+extern NSString* CorePushCategoryIdsKey;
+
+
 

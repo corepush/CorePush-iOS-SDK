@@ -16,7 +16,7 @@
 // 通知のコンフィグキーの設定
 //*********************************************************************************************
 
-#define CONFIG_KEY @"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+#define CONFIG_KEY @"XXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 
 
 @implementation AppDelegate
@@ -24,6 +24,7 @@
 @synthesize window = _window;
 @synthesize tabBarController = _tabBarController;
 @synthesize richUrl = _richUrl;
+@synthesize passbookUrl = _passbookUrl;
 
 - (void)dealloc
 {
@@ -75,6 +76,13 @@
     // アイコンバッジ数をリセットする
     //*********************************************************************************************
     [CorePushManager resetApplicationIconBadgeNumber];
+    
+    //    //アプリ内のユーザーIDの設定
+    //    [[CorePushManager shared] setAppUserId:@"username"];
+    //
+    //    //現在地の位置情報を送信する。
+    //    [[CorePushManager shared] setLocationServiceEnabled:YES];
+    //    [[CorePushManager shared] reportCurrentLocation];
     
     return YES;
 }
@@ -131,13 +139,28 @@
     //
     //    // userInfoオブジェクトからリッチ通知のURLを取得
     //    NSString* url = (NSString*) [userInfo objectForKey:@"url"];
-    //    
+    //
     //    if (url != nil && ![url isEqualToString:@""]) {
-    //        
+    //
     //        self.richUrl = url;
-    //        
-    //        //リッチ通知の画面を表示
-    //        [self showPopupView];
+    //
+    //        if ([self.richUrl hasPrefix:@"pass://"]) {
+    //
+    //            //Passbookの画面を表示
+    //            self.passbookUrl = [self.richUrl stringByReplacingOccurrencesOfString:@"pass://" withString:@"http://"];
+    //
+    //            NSString* appName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"];
+    //            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"%@からのお知らせ",appName] message:@"Passbookが届きました。\n表示しますか？" delegate:self cancelButtonTitle:@"キャンセル" otherButtonTitles:@"表示", nil];
+    //            alert.tag = 8;
+    //            [alert show];
+    //            [alert release];
+    //
+    //        } else {
+    //
+    //            //リッチ通知の画面を表示
+    //            [self showPopupView];
+    //
+    //        }
     //
     //        return;
     //    }
@@ -146,7 +169,7 @@
 }
 
 - (void)handleForegroundNotifcation:(NSDictionary*)userInfo {
-    
+        
     //*********************************************************************************************
     //    //アプリがフォアグランドで動作中に通知を受信した時の動作を定義
     //    
@@ -157,8 +180,23 @@
     //        
     //        self.richUrl = url;
     //                  
-    //        //リッチ通知の画面を表示
-    //        [self showPopupView];
+    //        if ([self.richUrl hasPrefix:@"pass://"]) {
+    //            
+    //            //Passbookの画面を表示
+    //            self.passbookUrl = [self.richUrl stringByReplacingOccurrencesOfString:@"pass://" withString:@"http://"];
+    //            
+    //            NSString* appName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"];
+    //            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"%@からのお知らせ",appName] message:@"Passbookが届きました。\n表示しますか？" delegate:self cancelButtonTitle:@"キャンセル" otherButtonTitles:@"表示", nil];
+    //            alert.tag = 8;
+    //            [alert show];
+    //            [alert release];
+    //            
+    //        } else {
+    //            
+    //            //リッチ通知の画面を表示
+    //            [self showPopupView];
+    //            
+    //        }
     //        return;
     //    }
     //    
@@ -192,8 +230,23 @@
     //
     //        self.richUrl = url;
     //
-    //        //リッチ通知の画面を表示
-    //        [self showPopupView];
+    //        if ([self.richUrl hasPrefix:@"pass://"]) {
+    //
+    //            //Passbookの画面を表示
+    //            self.passbookUrl = [self.richUrl stringByReplacingOccurrencesOfString:@"pass://" withString:@"http://"];
+    //
+    //            NSString* appName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"];
+    //            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"%@からのお知らせ",appName] message:@"Passbookが届きました。\n表示しますか？" delegate:self cancelButtonTitle:@"キャンセル" otherButtonTitles:@"表示", nil];
+    //            alert.tag = 8;
+    //            [alert show];
+    //            [alert release];
+    //
+    //        } else {
+    //
+    //            //リッチ通知の画面を表示
+    //            [self showPopupView];
+    //
+    //        }
     //
     //        return;
     //    }
@@ -218,7 +271,9 @@
         NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
         NSString* deviceToken = [defaults objectForKey:CorePushDeviceTokenKey];
         
-        [[CorePushManager shared] registerDeviceTokenString:deviceToken];
+        if (deviceToken != nil && ![deviceToken isEqualToString:@""]) {
+            [[CorePushManager shared] registerDeviceTokenString:deviceToken];
+        }
     }
     
 }
@@ -256,6 +311,64 @@
 }
 
 
+
+// Passbookを表示
+- (void)showPassbook {
+    
+    float version = [[[UIDevice currentDevice] systemVersion] floatValue];
+    
+    // OSのバージョンが6以上の場合、Passbookを表示
+    if (version  >= 6.00) {
+        
+        if ([PKPassLibrary isPassLibraryAvailable]) {
+            
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0), ^(void) {
+                
+                NSURL* pkPassUrl = [NSURL URLWithString:self.passbookUrl];
+                
+                NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc] initWithURL:pkPassUrl];
+                [urlRequest setHTTPMethod:@"GET"];
+                NSString *userAgent = @"iPhone OS 6";
+                [urlRequest setValue:userAgent forHTTPHeaderField:@"User-Agent"];
+                NSURLResponse *response;
+                NSError *error = nil;
+                NSData *data = [NSURLConnection sendSynchronousRequest:urlRequest
+                                                     returningResponse:&response
+                                                                 error:&error];
+                
+                if (error) {
+                    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+                    return;
+                }
+                
+                PKPass* pkPass = [[PKPass alloc] initWithData:data error:&error];
+                if (!error) {
+                    PKAddPassesViewController* addCtrl = [[PKAddPassesViewController alloc] initWithPass:pkPass];
+                    addCtrl.delegate = self;
+                    [self.window.rootViewController presentModalViewController:addCtrl animated:YES];
+                    
+                }
+                
+                dispatch_async(dispatch_get_main_queue(),^ {
+                    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+                } );
+                
+            });
+            
+        }
+    } else {
+        //        //OSのバージョンが6.0未満の場合の処理を記述
+        //        //[[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.passbookUrl]];
+    }
+    
+}
+
+
+-(void)addPassesViewControllerDidFinish:(PKAddPassesViewController *)controller {
+    [self.window.rootViewController dismissViewControllerAnimated:YES completion:nil];
+}
+
 //リッチ通知の画面をタップ時に呼びだされる。
 - (void)safariLaunch:(id)sender {
     UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"確認"
@@ -270,7 +383,13 @@
 
 #pragma mark - アラートのデリゲート
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (alertView.tag ==  9) {
+    if (alertView.tag == 8) {
+        if (buttonIndex == 1) {
+            
+            //PassbookのURLを表示
+            [self showPassbook];
+        }
+    } else if (alertView.tag ==  9) {
         if (buttonIndex == 1) {
             //Safariでリッチ通知のURLを表示
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.richUrl]];

@@ -7,6 +7,7 @@
 
 #import "NotificationHistoryViewController.h"
 #import <CorePush/CorePushNotificationHistoryModel.h>
+#import <CorePush/CorePushManager.h>
 
 @interface NotificationHistoryViewController ()
 
@@ -41,6 +42,11 @@
     // 通知履歴一覧を取得する
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     [[CorePushNotificationHistoryManager shared] requestNotificationHistory];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+  //  [[CorePushManager shared] setLocationServiceEnabled:NO];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
