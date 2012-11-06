@@ -15,8 +15,7 @@ CORE PUSH Developer（開発者向け）：<a href="http://developer.core-asp.co
 	[[CorePushManager shared] setConfigKey:@"XXXXXXXXXX"];###CorePushManagerクラスのデリゲートクラスの指定
 アプリケーションの動作状態に応じて通知をハンドリングするために、CorePushManagerDelegateプロトコルを実装した
 クラスを CorePushManager#setDelegate で指定します。	 [[CorePushManager shared] setDelegate:self];     ##デバイスの通知登録解除デバイスが通知を受信できるようにするには、CORE PUSH にデバイストークンを送信します。またデバイスが通知を受信できないようにするには、CORE PUSH からデバイストークンを削除します。###通知登録
-CorePushManager#registerForRemoteNotifications を呼び出すことで APNSサーバからデバイストークンを取得し、
-デバイストークンを CORE PUSH に送信します。
+CorePushManager#registerForRemoteNotifications を呼び出すことで APNSサーバからデバイストークンを取得し、デバイストークンを CORE PUSH に送信します。また、デバイストークンの送信時に 端末名、OSバージョン、最終利用時間を自動送信します。
 	[[CorePushManager shared] registerForRemoteNotifications];
 本メソッドはアプリの初回起動時かON/OFFスイッチなどで通知をONにする場合に使用してください。	###通知解除
 CorePushManager#unregisterDeviceToken を呼び出すことで CORE PUSH からデバイストークンを削除します。
@@ -150,6 +149,18 @@ CorePushManager#setCategoryIds で カテゴリID(文字列型)のリストを�
 
 上記カテゴリの設定後にデバイストークンを送信した場合、設定したcategory_id パラメータの値をCORE PUSHサーバにPOSTします。
 (category_idパラメータを設定しない場合のデフォルト値は 1 になります。)
+
+##端末情報の送信
+CorePushManager#setDeviceIdEnabled で 端末ID(UDID)を送信を制御することができます。
+
+	//端末IDを送信する場合
+	[CorePushManager shared] setDeviceIdEnabled:YES];
+	
+また、CorePushManager#setDeviceIdHashEnabled で取得した端末IDをハッシュ化します。
+	
+	//端末IDをハッシュ化する場合
+	[CorePushManager shared] setDeviceIdHashEnabled:YES];
+
 ##ユーザー間プッシュ通知
 ユーザー間のプッシュ通知を実現するには、事前にアプリ側でユーザーのデバイストークンのCORE PUSHへの登録とユーザー属性の御社サーバへの登録を行う必要があります。全体のイメージ図につきましては、<a href="http://developer.core-asp.com/api_image.php">http://developer.core-asp.com/api_image.php</a> をご参照ください。
 ### CORE PUSHへのデバイストークンの登録
