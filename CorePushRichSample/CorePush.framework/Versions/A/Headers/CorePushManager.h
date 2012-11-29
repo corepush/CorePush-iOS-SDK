@@ -51,9 +51,8 @@
     BOOL deviceIdEnabled_;
     BOOL deviceIdHashEnabled_;
     BOOL locationServiceEnabled_;
-    BOOL isCategoryIdsDictionary_;
     NSMutableArray* categoryIds_;
-    NSMutableArray* categoryIdsDictionary_;
+    NSMutableDictionary* multiCategoryIds_;
     NSString* appUserId_;
     CLLocation* currentLocation_; // 現在の緯度経度
     CLLocationManager *locationManager_;
@@ -65,9 +64,8 @@
 @property (nonatomic, assign) BOOL deviceIdEnabled;
 @property (nonatomic, assign) BOOL deviceIdHashEnabled;
 @property (nonatomic, assign) BOOL locationServiceEnabled;
-@property (nonatomic, assign) BOOL isCategoryIdsDictionary;
 @property (nonatomic, retain) NSMutableArray* categoryIds;
-@property (nonatomic, retain) NSMutableArray* categoryIdsDictionary;
+@property (nonatomic, retain) NSMutableDictionary *multiCategoryIds;
 @property (nonatomic, retain) NSString* appUserId;
 @property (nonatomic, retain) CLLocation* currentLocation;
 @property (nonatomic, retain) CLLocationManager *locationManager;
@@ -124,10 +122,16 @@
 
 /**
  * CORE PUSHのカテゴリIDを設定する。
- * @param categoryIds CorePushCategoryModelの配列
+ * @param categoryIds カテゴリIDの配列
  */
 - (void)setCategoryIds:(NSMutableArray *)categoryIds;
 
+/**
+ * CORE PUSHのカテゴリIDを設定する。
+ * @param categoryIds カテゴリIDのディクショナリ。カテゴリIDをキーにサブカテゴリID
+ * の配列を指定。
+ */
+- (void)setMultiCategoryIds:(NSMutableDictionary *)multiCategoryIds;
 
 /**
  * CORE PUSHのユーザーIDを設定する。

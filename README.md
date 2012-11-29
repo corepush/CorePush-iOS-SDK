@@ -140,8 +140,10 @@ CorePushManager#reportCurrentLocation 、現在の位置情報(緯度、経度)�
     [[CorePushManager shared] reportCurrentLocation];
 
 ##カテゴリの設定
+###１次元カテゴリ設定
 デバイストークン登録APIの category_id パラメータの設定を行うことができます。パラメータの設定を行うには、
-CorePushManager#setCategoryIds で カテゴリID(文字列型)のリストを指定します。以下はカテゴリIDのリストの作成例になります。
+CorePushManager#setCategoryIds で カテゴリID(文字列型)のリストを指定します。以下はカテゴリIDのリストの作成例になります。<br />
+※例は事前に管理画面で1から4までのカテゴリを設定しておいたものとする。
 
 	//1:北海道、2:東北 3:関東、4:近畿
 	 NSMutableArray* categoryids = [NSMutableArray arrayWithObjects:@"1", @"2", @"3", @"4", nil];
@@ -149,6 +151,23 @@ CorePushManager#setCategoryIds で カテゴリID(文字列型)のリストを�
 
 上記カテゴリの設定後にデバイストークンを送信した場合、設定したcategory_id パラメータの値をCORE PUSHサーバにPOSTします。
 (category_idパラメータを設定しない場合のデフォルト値は 1 になります。)
+
+###2次元カテゴリ設定
+デバイストークン登録APIの category_id パラメータの設定を行うことができます。パラメータの設定を行うには、
+CorePushManager#setMultiCategoryIds で カテゴリIDのディクショナリーを指定します。以下はカテゴリIDのディクショナリーの作成例になります。<br />
+※例は事前に管理画面で1から4までのカテゴリを設定しておいたものとする。
+
+	//1:地域、2:性別 3:年代 4:好きなジャンル(複数選択可の場合)
+	 NSMutableDictionary* multiCategoryIds = [NSMutableDictionary dictionary];
+	 [multiCategoryDictionary setObject:[NSArray arrayWithObjects:@"神奈川",nil] forKey:@"1"];         //地域が「神奈川」の場合
+	 [multiCategoryDictionary setObject:[NSArray arrayWithObjects:@"男性",nil] forKey:@"2"];           //性別が「男性」の場合
+	 [multiCategoryDictionary setObject:[NSArray arrayWithObjects:@"20代",nil] forKey:@"3"];           //年代が「男性」の場合
+	 [multiCategoryDictionary setObject:[NSArray arrayWithObjects:@"音楽", @"読書", nil] forKey:@"4"];  //好きなジャンルが「音楽」と「読書」の場合
+	[[CorePushManager shared] setMultiCategoryIds:multiCategoryids];
+
+上記カテゴリの設定後にデバイストークンを送信した場合、設定したcategory_id パラメータの値をCORE PUSHサーバにPOSTします。
+(1次元カテゴリと2次元カテゴリの両方が設定されている場合、category_id パラメータには２次元カテゴリの設定が優先されます。category_idパラメータを設定しない場合のデフォルト値は 1 になります。)
+
 
 ##端末情報の送信
 CorePushManager#setDeviceIdEnabled で 端末ID(UDID)を送信を制御することができます。
