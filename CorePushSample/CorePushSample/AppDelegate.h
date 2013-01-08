@@ -7,6 +7,7 @@
 
 #import <UIKit/UIKit.h>
 #import <CorePush/CorePushManager.h>
+#import <CorePush/CorePushAnalyticsManager.h>
 
 @class ViewController;
 

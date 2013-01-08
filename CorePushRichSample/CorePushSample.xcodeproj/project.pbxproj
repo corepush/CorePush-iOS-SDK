@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		42008462169C562100BA260C /* CorePush.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42008461169C562100BA260C /* CorePush.framework */; };
+		42008464169C563900BA260C /* CorePushSDKResources.bundle in Frameworks */ = {isa = PBXBuildFile; fileRef = 42008463169C563900BA260C /* CorePushSDKResources.bundle */; };
 		42446758163E294400AC20CD /* history.png in Resources */ = {isa = PBXBuildFile; fileRef = 42446756163E294400AC20CD /* history.png */; };
 		42446759163E294400AC20CD /* setting.png in Resources */ = {isa = PBXBuildFile; fileRef = 42446757163E294400AC20CD /* setting.png */; };
-		42951B3A163D569C0051B623 /* CorePushSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 42951B39163D569C0051B623 /* CorePushSDKResources.bundle */; };
 		42951B62163E26F80051B623 /* NotificationHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42951B60163E26F80051B623 /* NotificationHistoryViewController.m */; };
 		42951B63163E26F80051B623 /* NotificationHistoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42951B61163E26F80051B623 /* NotificationHistoryViewController.xib */; };
-		42AEDCDB1647B57000DBE2C4 /* CorePush.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42AEDCDA1647B57000DBE2C4 /* CorePush.framework */; };
 		42FA6271163FBB0C00723F49 /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42FA6270163FBB0C00723F49 /* PassKit.framework */; };
 		42FA62CE1643B74F00723F49 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42FA62CD1643B74F00723F49 /* CoreLocation.framework */; };
 		86ED473B14B188A4000F6001 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86ED473A14B188A4000F6001 /* UIKit.framework */; };
@@ -26,13 +26,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		42008461169C562100BA260C /* CorePush.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CorePush.framework; path = ../SDK/CorePush.framework; sourceTree = "<group>"; };
+		42008463169C563900BA260C /* CorePushSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = CorePushSDKResources.bundle; path = ../SDK/CorePushSDKResources.bundle; sourceTree = "<group>"; };
 		42446756163E294400AC20CD /* history.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = history.png; sourceTree = "<group>"; };
 		42446757163E294400AC20CD /* setting.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setting.png; sourceTree = "<group>"; };
-		42951B39163D569C0051B623 /* CorePushSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CorePushSDKResources.bundle; sourceTree = "<group>"; };
 		42951B5F163E26F80051B623 /* NotificationHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationHistoryViewController.h; sourceTree = "<group>"; };
 		42951B60163E26F80051B623 /* NotificationHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationHistoryViewController.m; sourceTree = "<group>"; };
 		42951B61163E26F80051B623 /* NotificationHistoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotificationHistoryViewController.xib; sourceTree = "<group>"; };
-		42AEDCDA1647B57000DBE2C4 /* CorePush.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CorePush.framework; sourceTree = "<group>"; };
 		42FA6270163FBB0C00723F49 /* PassKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PassKit.framework; path = System/Library/Frameworks/PassKit.framework; sourceTree = SDKROOT; };
 		42FA62CD1643B74F00723F49 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		86ED473614B188A4000F6001 /* CorePushSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CorePushSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -55,12 +55,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42008464169C563900BA260C /* CorePushSDKResources.bundle in Frameworks */,
+				42008462169C562100BA260C /* CorePush.framework in Frameworks */,
 				42FA62CE1643B74F00723F49 /* CoreLocation.framework in Frameworks */,
 				42FA6271163FBB0C00723F49 /* PassKit.framework in Frameworks */,
 				86ED473B14B188A4000F6001 /* UIKit.framework in Frameworks */,
 				86ED473D14B188A4000F6001 /* Foundation.framework in Frameworks */,
 				86ED473F14B188A4000F6001 /* CoreGraphics.framework in Frameworks */,
-				42AEDCDB1647B57000DBE2C4 /* CorePush.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,10 +87,10 @@
 		86ED473914B188A4000F6001 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				42008463169C563900BA260C /* CorePushSDKResources.bundle */,
+				42008461169C562100BA260C /* CorePush.framework */,
 				42FA62CD1643B74F00723F49 /* CoreLocation.framework */,
-				42AEDCDA1647B57000DBE2C4 /* CorePush.framework */,
 				42FA6270163FBB0C00723F49 /* PassKit.framework */,
-				42951B39163D569C0051B623 /* CorePushSDKResources.bundle */,
 				86ED473A14B188A4000F6001 /* UIKit.framework */,
 				86ED473C14B188A4000F6001 /* Foundation.framework */,
 				86ED473E14B188A4000F6001 /* CoreGraphics.framework */,
@@ -181,7 +182,6 @@
 			files = (
 				86ED474514B188A4000F6001 /* InfoPlist.strings in Resources */,
 				86ED475114B188A4000F6001 /* ViewController.xib in Resources */,
-				42951B3A163D569C0051B623 /* CorePushSDKResources.bundle in Resources */,
 				42951B63163E26F80051B623 /* NotificationHistoryViewController.xib in Resources */,
 				42446758163E294400AC20CD /* history.png in Resources */,
 				42446759163E294400AC20CD /* setting.png in Resources */,

@@ -34,6 +34,9 @@ extern NSString* CorePushRegistTokenApi;
 /// デバイストークン登録・削除API
 extern NSString* CorePushNotificationHistoryApi;
 
+/// アクセス解析API
+extern NSString* CorePushAnalyticsApi;
+
 /// コンフィグキーを保持するための UserDefaults のキー
 extern NSString* CorePushConfigKey;
 

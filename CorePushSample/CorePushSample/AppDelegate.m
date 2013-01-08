@@ -109,6 +109,14 @@
     // アプリがバックグランドで動作中に通知からアプリを起動した時の動作を定義
     //*********************************************************************************************
     
+    //*********************************************************************************************
+    //  通知からの起動を把握するためのアクセス解析用のパラメータを送信
+    //  NSString* pushId = (NSString*) [userInfo objectForKey:@"push_id"];
+    //  if (pushId != nil) {
+    //    [[CorePushAnalyticsManager shared] requestAppLaunchAnalytics:pushId latitude:@"0" longitude:@"0"];
+    //  }
+    //*********************************************************************************************
+    
 }
 
 - (void)handleForegroundNotifcation:(NSDictionary*)userInfo {
@@ -126,6 +134,15 @@
     //                                          otherButtonTitles:@"OK", nil];
     // [alertView show];
     // [alertView release];
+    //
+    //*********************************************************************************************
+    
+    //*********************************************************************************************
+    //  通知からの起動を把握するためのアクセス解析用のパラメータを送信
+    //  NSString* pushId = (NSString*) [userInfo objectForKey:@"push_id"];
+    //  if (pushId != nil) {
+    //    [[CorePushAnalyticsManager shared] requestAppLaunchAnalytics:pushId latitude:@"0" longitude:@"0"];
+    //  }
     //*********************************************************************************************
     
 }
@@ -137,6 +154,14 @@
     // userInfoオブジェクトから通知メッセージを取得
     // NSString* message = (NSString*) [[userInfo objectForKey:@"aps"] objectForKey:@"alert"];
     // NSLog(@"message: %@", message);
+    //*********************************************************************************************
+    
+    //*********************************************************************************************
+    //  通知からの起動を把握するためのアクセス解析用のパラメータを送信
+    //  NSString* pushId = (NSString*) [userInfo objectForKey:@"push_id"];
+    //  if (pushId != nil) {
+    //    [[CorePushAnalyticsManager shared] requestAppLaunchAnalytics:pushId latitude:@"0" longitude:@"0"];
+    //  }
     //*********************************************************************************************
     
 }

@@ -7,6 +7,7 @@
 
 #import <UIKit/UIKit.h>
 #import <CorePush/CorePushManager.h>
+#import <CorePush/CorePushAnalyticsManager.h>
 #import <PassKit/PKPassLibrary.h>
 #import <PassKit/PKPass.h>
 #import <PassKit/PKAddPassesViewController.h>

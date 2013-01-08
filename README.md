@@ -211,3 +211,28 @@ CorePushManager#registerForRemtoeNotifications で通知の登録を行う前に
 
 特定のユーザーに対してプッシュ通知を行うには、通知送信リクエストAPIに対して、御社サーバから通知の送信依頼
 を行います。詳細につきましては、<a href="http://developer.core-asp.com/api_request.php">http://developer.core-asp.com/api_request.php</a> をご参照ください。
+
+
+## アクセス解析
+
+### 通知からのアプリ起動数の把握
+
+通知からのアプリの起動時にアクセス解析用のパラメータをCORE PUSHサーバに対して送信することで、管理画面の通知履歴から通知からのアプリ起動数を把握することができます。
+
+アクセス解析用のパラメータを CORE PUSHサーバに対して送信するには、userInfo オブジェクトから push_id をキーとして通知IDを取得し、CorePushAnalyticsManager#requestAppLaunchAnalytics:latitude:longitude で
+通知IDを送信します。
+
+	// 通知IDの取得
+    NSString* pushId = (NSString*) [userInfo objectForKey:@"push_id"];
+    if (pushId != nil) {
+    	 // 通知IDを送信します。通知IDは userInfoオブジェクトから push_id キーで
+    	 // 取得できます。また、通知から起動した地点の緯度・経度を指定することができます。緯度・経度を
+    	 // 送信しない場合は latitude、longitudeパラメータに 0 を指定します。
+        [[CorePushAnalyticsManager shared] requestAppLaunchAnalytics:pushId latitude:@"0" longitude:@"0"];
+    }
+
+また、通知からの起動数を正確に把握するために、通知受信後の動作設定の項目で説明した以下の３つのメソッド内で
+アクセス解析用のパラメータを CORE PUSHサーバに対して送信してください。
+
+*	バックグランド状態で動作中に通知から起動した場合に呼び出されるCorePushManagerDelegate#handleBackgroundNotification メソッド*	フォアグラウンド状態で動作中に通知を受信した場合に呼び出される CorePushManagerDelegate#handleForegroundNotification *	アプリケーションが動作していない状態で通知から起動した場合に呼び出される　CorePushManagerDelegate#handleLaunchingNotification
+
