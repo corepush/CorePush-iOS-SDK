@@ -235,4 +235,13 @@ CorePushManager#registerForRemtoeNotifications で通知の登録を行う前に
 アクセス解析用のパラメータを CORE PUSHサーバに対して送信してください。
 
 *	バックグランド状態で動作中に通知から起動した場合に呼び出されるCorePushManagerDelegate#handleBackgroundNotification メソッド*	フォアグラウンド状態で動作中に通知を受信した場合に呼び出される CorePushManagerDelegate#handleForegroundNotification *	アプリケーションが動作していない状態で通知から起動した場合に呼び出される　CorePushManagerDelegate#handleLaunchingNotification
+## プッシュ通知の送信エラー
+
+###エラー内容の把握
+
+プッシュ通知の送信に失敗した場合、管理画面の送信履歴のエラー数のリンク先からエラー画面を確認できます。
+エラー区分としては下記に分類されます。
+
+1. アプリ削除でトークンが無効となった場合や、形式不正なトークンなどによるエラー
+2. 上記以外のエラー（通信失敗、その他）
 
