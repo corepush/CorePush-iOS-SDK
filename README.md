@@ -217,7 +217,7 @@ CorePushManager#registerForRemtoeNotifications で通知の登録を行う前に
 
 ### 通知からのアプリ起動数の把握
 
-通知からのアプリの起動時にアクセス解析用のパラメータをCORE PUSHサーバに対して送信することで、管理画面の通知履歴から通知からのアプリ起動数を把握することができます。
+通知からのアプリの起動時にアクセス解析用のパラメータをCORE PUSHサーバに対して送信することで、管理画面の通知履歴から通知からのアプリ起動数を把握することができます（ただし、通知からのアプリ起動数の把握は、本番環境のプッシュ通知のみに制限されます。開発環境のプッシュ通知では、後述の通知IDを取得することができません)。
 
 アクセス解析用のパラメータを CORE PUSHサーバに対して送信するには、userInfo オブジェクトから push_id をキーとして通知IDを取得し、CorePushAnalyticsManager#requestAppLaunchAnalytics:latitude:longitude で
 通知IDを送信します。
