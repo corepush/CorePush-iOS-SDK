@@ -1,5 +1,11 @@
 #Core Push iOS SDKの変更点
 
+=================================
+Version 3.2 - April 9, 2013
+=================================
+- 変更: [UIDevice uniqueIdentifier] の使用を削除しました。
+CorePushManager#setDeviceIdEnabled で 端末ID(UDID)の送信を制御しておりましたが、
+端末IDを送信しないように変更しました。
 
 =================================
 Version 3.1 - January 9, 2013
