@@ -9,25 +9,67 @@ Core Push iOS SDK は、プッシュ通知ASPサービス「CORE PUSH」の iOS�
 
 CORE PUSH：<a href="http://core-asp.com">http://core-asp.com</a>
 
-CORE PUSH Developer（開発者向け）：<a href="http://developer.core-asp.com">http://developer.core-asp.com</a>## 動作条件* iOS4.0以上が動作対象になります。
+CORE PUSH Developer（開発者向け）：<a href="http://developer.core-asp.com">http://developer.core-asp.com</a>
+
+## 動作条件
+* iOS4.0以上が動作対象になります。
 * Xcodeのプロジェクトのターゲットを選択し、Build Phases の Link Binary With Libraries から SDK/CorePush.framework を追加してください。
-* リッチ通知をご利用の場合は、SDK/CorePush.framework と SDK/CorePushSDKResources.bundle を追加してください。リッチ通知のサンプルは、CorePushRichSampleプロジェクトをご参照ください。	##アプリの通知設定###CORE PUSHの設定キーの指定Core Push管理画面 にログインし、ホーム画面からiOSアプリの設定キーを確認してください。 この設定キーをCorePushManager#setConfigKey で指定します。
-	[[CorePushManager shared] setConfigKey:@"XXXXXXXXXX"];###CorePushManagerクラスのデリゲートクラスの指定
+* リッチ通知をご利用の場合は、SDK/CorePush.framework と SDK/CorePushSDKResources.bundle を追加してください。リッチ通知のサンプルは、CorePushRichSampleプロジェクトをご参照ください。
+* Xcodeのバージョンが6未満の環境でビルドする場合は、v3.2.0に同梱されているSDKを使用してください。
+	
+##アプリの通知設定
+
+###CORE PUSHの設定キーの指定
+Core Push管理画面 にログインし、ホーム画面からiOSアプリの設定キーを確認してください。 この設定キーをCorePushManager#setConfigKey で指定します。
+
+	[[CorePushManager shared] setConfigKey:@"XXXXXXXXXX"];
+
+###CorePushManagerクラスのデリゲートクラスの指定
 アプリケーションの動作状態に応じて通知をハンドリングするために、CorePushManagerDelegateプロトコルを実装した
-クラスを CorePushManager#setDelegate で指定します。	 [[CorePushManager shared] setDelegate:self];     ##デバイスの通知登録解除デバイスが通知を受信できるようにするには、CORE PUSH にデバイストークンを送信します。またデバイスが通知を受信できないようにするには、CORE PUSH からデバイストークンを削除します。###通知登録
+クラスを CorePushManager#setDelegate で指定します。
+
+	 [[CorePushManager shared] setDelegate:self];     
+
+##デバイスの通知登録解除
+デバイスが通知を受信できるようにするには、CORE PUSH にデバイストークンを送信します。またデバイスが通知を受信できないようにするには、CORE PUSH からデバイストークンを削除します。
+
+###通知登録
 CorePushManager#registerForRemoteNotifications を呼び出すことで APNSサーバからデバイストークンを取得し、デバイストークンを CORE PUSH に送信します。また、デバイストークンの送信時に 端末名、OSバージョン、最終利用時間を自動送信します。
-	[[CorePushManager shared] registerForRemoteNotifications];
-本メソッドはアプリの初回起動時かON/OFFスイッチなどで通知をONにする場合に使用してください。	###通知解除
-CorePushManager#unregisterDeviceToken を呼び出すことで CORE PUSH からデバイストークンを削除します。
-	[[CorePushManager shared] unregisterDeviceToken];
-本メソッドはON/OFFスイッチなどで通知をOFFにする場合に使用してください。		##通知受信後の動作設定
-アプリケーションの動作状態に応じて通知をハンドリングすることができます。	###バックグランド状態で動作中に通知から起動した場合
-UIApplication#application:didReceiveRemoteNotification: にて、以下のメソッドを呼び出します。
-	[[CorePushManager shared] handleRemoteNotification:userInfo]		  アプリケーションがバックグランド状態で動作中の場合は、CorePushManagerDelegate#handleBackgroundNotification が呼び出されます。###フォアグラウンド状態で動作中に通知を受信した場合
-UIApplication#application:didReceiveRemoteNotification: にて、以下のメソッドを呼び出します。
-	[[CorePushManager shared] handleRemoteNotification:userInfo]
-アプリケーションがフォアグラウンド状態で動作中の場合は、CorePushManagerDelegate#handleForegroundNotification が呼び出されます。
-###アプリケーションが動作していない状態で通知から起動した場合
+
+	[[CorePushManager shared] registerForRemoteNotifications];
+
+本メソッドはアプリの初回起動時かON/OFFスイッチなどで通知をONにする場合に使用してください。	
+
+###通知解除
+
+CorePushManager#unregisterDeviceToken を呼び出すことで CORE PUSH からデバイストークンを削除します。
+
+	[[CorePushManager shared] unregisterDeviceToken];
+
+本メソッドはON/OFFスイッチなどで通知をOFFにする場合に使用してください。	
+	
+##通知受信後の動作設定
+
+
+アプリケーションの動作状態に応じて通知をハンドリングすることができます。
+	
+###バックグランド状態で動作中に通知から起動した場合
+
+UIApplication#application:didReceiveRemoteNotification: にて、以下のメソッドを呼び出します。
+
+	[[CorePushManager shared] handleRemoteNotification:userInfo]
+		  
+アプリケーションがバックグランド状態で動作中の場合は、CorePushManagerDelegate#handleBackgroundNotification が呼び出されます。
+
+###フォアグラウンド状態で動作中に通知を受信した場合
+
+UIApplication#application:didReceiveRemoteNotification: にて、以下のメソッドを呼び出します。
+
+	[[CorePushManager shared] handleRemoteNotification:userInfo]
+
+アプリケーションがフォアグラウンド状態で動作中の場合は、CorePushManagerDelegate#handleForegroundNotification が呼び出されます。
+
+###アプリケーションが動作していない状態で通知から起動した場合
 UIApplication#application:didFinishLaunchingWithOptions にて、以下のメソッドを呼び出します。
 
 	[[CorePushManager shared] handleLaunchingNotificationWithOption:launchOptions];
@@ -77,7 +119,8 @@ CorePushNotificationHistoryManager#setRead を呼び出すことで通知履歴�
 	 self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d", unreadNumber];
 	 
 	 //アイコンのバッジ数に未読数を設定する場合
-	 [CorePushManager setApplicationIconBadgeNumber:unreadNumber];	
+	 [CorePushManager setApplicationIconBadgeNumber:unreadNumber];
+	
 ##リッチ通知画面(ポップアップウインドウ)の表示
 
 リッチ通知を受信した場合は、通知オブジェクト内にリッチ通知用のURLが含まれます。
@@ -180,19 +223,33 @@ CorePushManager#setDeviceIdEnabled で 端末ID(UDID)を送信を制御するこ
 	//端末IDをハッシュ化する場合
 	[CorePushManager shared] setDeviceIdHashEnabled:YES];
 
-##ユーザー間プッシュ通知
-ユーザー間のプッシュ通知を実現するには、事前にアプリ側でユーザーのデバイストークンのCORE PUSHへの登録とユーザー属性の御社サーバへの登録を行う必要があります。全体のイメージ図につきましては、<a href="http://developer.core-asp.com/api_image.php">http://developer.core-asp.com/api_image.php</a> をご参照ください。
-### CORE PUSHへのデバイストークンの登録
+
+##ユーザー間プッシュ通知
+
+ユーザー間のプッシュ通知を実現するには、事前にアプリ側でユーザーのデバイストークンのCORE PUSHへの登録とユーザー属性の御社サーバへの登録を行う必要があります。全体のイメージ図につきましては、<a href="http://developer.core-asp.com/api_image.php">http://developer.core-asp.com/api_image.php</a> をご参照ください。
+
+### CORE PUSHへのデバイストークンの登録
 
 CorePushManager#registerForRemtoeNotifications で通知の登録を行う前に、CorePushManager#setAppUserIdでアプリ内のユーザーIDを指定します。
-	//アプリのユーザーIDを登録	[[CorePushManager shared] setAppUserId:@"UserId"];	//デバイストークンの登録	[[CorePushManager shared] registerForRemoteNotifications];
+
+	//アプリのユーザーIDを登録
+	[[CorePushManager shared] setAppUserId:@"UserId"];
+
+	//デバイストークンの登録
+	[[CorePushManager shared] registerForRemoteNotifications];
+
   
 上記により、api.core-asp.com/iphone_token_regist.php のトークン登録APIに
 対して、app_user_id のパラメータが送信され、アプリ内でのユーザーの識別IDとデバイストークンが
 紐づいた形でDBに保存されます。
-  ### 御社サーバへのユーザー属性の登録
-CorePushManager#registerUserAttributes:api: で御社サーバにユーザー属性の登録を行う前に
-、CorePushManager#setAppUserIdでアプリ内でのユーザーの識別IDを指定します。	//アプリ内でのユーザーの識別IDを登録	[[CorePushManager shared] setAppUserId:@"UserId"];
+  
+### 御社サーバへのユーザー属性の登録
+
+CorePushManager#registerUserAttributes:api: で御社サーバにユーザー属性の登録を行う前に
+、CorePushManager#setAppUserIdでアプリ内でのユーザーの識別IDを指定します。
+
+	//アプリ内でのユーザーの識別IDを登録
+	[[CorePushManager shared] setAppUserId:@"UserId"];
 
 ユーザー属性を定義した配列を作成します。
    
@@ -234,8 +291,12 @@ CorePushManager#registerForRemtoeNotifications で通知の登録を行う前に
 また、通知からの起動数を正確に把握するために、通知受信後の動作設定の項目で説明した以下の３つのメソッド内で
 アクセス解析用のパラメータを CORE PUSHサーバに対して送信してください。
 
-*	バックグランド状態で動作中に通知から起動した場合に呼び出されるCorePushManagerDelegate#handleBackgroundNotification メソッド*	フォアグラウンド状態で動作中に通知を受信した場合に呼び出される CorePushManagerDelegate#handleForegroundNotification *	アプリケーションが動作していない状態で通知から起動した場合に呼び出される　CorePushManagerDelegate#handleLaunchingNotification
-## プッシュ通知の送信エラー
+*	バックグランド状態で動作中に通知から起動した場合に呼び出されるCorePushManagerDelegate#handleBackgroundNotification メソッド
+*	フォアグラウンド状態で動作中に通知を受信した場合に呼び出される CorePushManagerDelegate#handleForegroundNotification 
+*	アプリケーションが動作していない状態で通知から起動した場合に呼び出される　CorePushManagerDelegate#handleLaunchingNotification
+
+
+## プッシュ通知の送信エラー
 
 ###エラー内容の把握
 
