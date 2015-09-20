@@ -313,4 +313,48 @@ CorePushManager#registerUserAttributes:api: で御社サーバにユーザー属
 <div> ※全角60文字もしくは半角英数112文字が目安。</div>
 <div> ※メッセージが236バイト以内で上記の文字数を超えた場合は、以降の文字列はロック画面や通知センターにおいて「…」のように省略表示されます。</div>
 
+## Xcode7、iOS9への対応について
 
+### App Transport Security(ATS)への対応
+<div>
+iOS SDK 9.0以上でビルドしたアプリにおいて、App Transport Securirty が有効になっている場合、デフォルト設定でHTTPへの接続がHTTPSへの接続に切り替わり API側がHTTPS接続に対応していない場合はAPIの接続に失敗いたします。
+</div>
+<div>
+現時点のCorePush SDK 3.4.0 では、SDK内部で接続しているAPIがHTTPS接続に対応していないため、iOS SDK 9.0以上でビルドしたアプリではAPIの接続に失敗いたします。
+</div>
+<div>
+※ iOS SDK 9.0未満でビルドしたアプリをiOS9の端末で動作した場合は、App Transport Securityの影響はございません。
+</div>
+ただし、プロジェクトのInfo.plistを Source Code で開き、以下の内容を追加いただくことで、App Transport Securityで制限される通信の例外を設定することができます。
+
+以下の例では、SDK内部で接続しているAPIのcore-asp.comドメインのHTTP接続を許可させます。
+
+```
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSExceptionDomains</key>
+        <dict>
+            <key>core-asp.com</key>
+            <dict>
+                <key>NSIncludesSubdomains</key>
+                <true/>
+                <key>NSExceptionAllowsInsecureHTTPLoads</key>
+                <true/>
+                <key>NSExceptionRequiresForwardSecrecy</key>
+                <false/>
+            </dict>
+        </dict>
+    </dict>
+```
+
+### Bitcodeへの対応
+<div>
+CorePush SDKのv3.4.0において、Xcode7のLLVM Bitcode に対応いたしました。
+Xcode7のBuildSetting ＞ Enable Bitcode を YES に設定いただくことで、Bitcodeを有効化したビルド
+に対応できます。
+</div>
+<div>
+Bitcodeの詳細につきましては、<a href="https://developer.apple.com/library/prerelease/watchos/documentation/IDEs/Conceptual/AppDistributionGuide/AppThinning/AppThinning.html">Apple社の公式ドキュメント</a>をご参照ください。
+</div>
+
+<div>※ アプリがBitcodeに対応するには、アプリ内で使用している全てのライブラリを含めて、Bitcodeを有効化したビルドに対応する必要がございます。ビルド時にエラーが発生する場合は、使用しているライブラリのBitcodeへの対応状況についてご確認ください。</div>

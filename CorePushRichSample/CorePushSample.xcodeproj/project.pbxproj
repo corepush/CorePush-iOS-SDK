@@ -8,9 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		42008462169C562100BA260C /* CorePush.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42008461169C562100BA260C /* CorePush.framework */; };
-		42008464169C563900BA260C /* CorePushSDKResources.bundle in Frameworks */ = {isa = PBXBuildFile; fileRef = 42008463169C563900BA260C /* CorePushSDKResources.bundle */; };
+		42008464169C563900BA260C /* CorePushSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 42008463169C563900BA260C /* CorePushSDKResources.bundle */; };
 		42446758163E294400AC20CD /* history.png in Resources */ = {isa = PBXBuildFile; fileRef = 42446756163E294400AC20CD /* history.png */; };
 		42446759163E294400AC20CD /* setting.png in Resources */ = {isa = PBXBuildFile; fileRef = 42446757163E294400AC20CD /* setting.png */; };
+		425305871BAE601A006D8E2E /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 425305861BAE601A006D8E2E /* Default-568h@2x.png */; settings = {ASSET_TAGS = (); }; };
 		42951B62163E26F80051B623 /* NotificationHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42951B60163E26F80051B623 /* NotificationHistoryViewController.m */; };
 		42951B63163E26F80051B623 /* NotificationHistoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42951B61163E26F80051B623 /* NotificationHistoryViewController.xib */; };
 		42FA6271163FBB0C00723F49 /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42FA6270163FBB0C00723F49 /* PassKit.framework */; };
@@ -30,6 +31,7 @@
 		42008463169C563900BA260C /* CorePushSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = CorePushSDKResources.bundle; path = ../SDK/CorePushSDKResources.bundle; sourceTree = "<group>"; };
 		42446756163E294400AC20CD /* history.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = history.png; sourceTree = "<group>"; };
 		42446757163E294400AC20CD /* setting.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setting.png; sourceTree = "<group>"; };
+		425305861BAE601A006D8E2E /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		42951B5F163E26F80051B623 /* NotificationHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationHistoryViewController.h; sourceTree = "<group>"; };
 		42951B60163E26F80051B623 /* NotificationHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationHistoryViewController.m; sourceTree = "<group>"; };
 		42951B61163E26F80051B623 /* NotificationHistoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotificationHistoryViewController.xib; sourceTree = "<group>"; };
@@ -55,7 +57,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				42008464169C563900BA260C /* CorePushSDKResources.bundle in Frameworks */,
 				42008462169C562100BA260C /* CorePush.framework in Frameworks */,
 				42FA62CE1643B74F00723F49 /* CoreLocation.framework in Frameworks */,
 				42FA6271163FBB0C00723F49 /* PassKit.framework in Frameworks */,
@@ -71,6 +72,7 @@
 		86ED472B14B188A4000F6001 = {
 			isa = PBXGroup;
 			children = (
+				425305861BAE601A006D8E2E /* Default-568h@2x.png */,
 				86ED474014B188A4000F6001 /* CorePushSample */,
 				86ED473714B188A4000F6001 /* Products */,
 			);
@@ -155,7 +157,7 @@
 		86ED472D14B188A4000F6001 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "株式会社ブレスサービス";
 			};
 			buildConfigurationList = 86ED473014B188A4000F6001 /* Build configuration list for PBXProject "CorePushSample" */;
@@ -180,10 +182,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42008464169C563900BA260C /* CorePushSDKResources.bundle in Resources */,
 				86ED474514B188A4000F6001 /* InfoPlist.strings in Resources */,
 				86ED475114B188A4000F6001 /* ViewController.xib in Resources */,
 				42951B63163E26F80051B623 /* NotificationHistoryViewController.xib in Resources */,
 				42446758163E294400AC20CD /* history.png in Resources */,
+				425305871BAE601A006D8E2E /* Default-568h@2x.png in Resources */,
 				42446759163E294400AC20CD /* setting.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -228,12 +232,21 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -241,10 +254,15 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				VALID_ARCHS = "armv7 armv7s";
 			};
@@ -254,14 +272,26 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
@@ -274,7 +304,10 @@
 		86ED475514B188A4000F6001 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					armv7s,
+				);
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -282,17 +315,18 @@
 					"\"$(SRCROOT)/CorePushSample\"",
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/../SDK\"",
-					"\"$(SRCROOT)/Release-framework\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CorePushSample/CorePushSample-Prefix.pch";
 				INFOPLIST_FILE = "CorePushSample/CorePushSample-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/CorePushSample\"",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.core-asp.CorePushSample";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -300,7 +334,10 @@
 		86ED475614B188A4000F6001 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					armv7s,
+				);
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -308,17 +345,18 @@
 					"\"$(SRCROOT)/CorePushSample\"",
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/../SDK\"",
-					"\"$(SRCROOT)/Release-framework\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CorePushSample/CorePushSample-Prefix.pch";
 				INFOPLIST_FILE = "CorePushSample/CorePushSample-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/CorePushSample\"",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.core-asp.CorePushSample";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

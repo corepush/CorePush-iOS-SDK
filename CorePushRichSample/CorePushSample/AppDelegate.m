@@ -371,7 +371,7 @@
                 if (!error) {
                     PKAddPassesViewController* addCtrl = [[PKAddPassesViewController alloc] initWithPass:pkPass];
                     addCtrl.delegate = self;
-                    [self.window.rootViewController presentModalViewController:addCtrl animated:YES];
+                    [self.window.rootViewController presentViewController:addCtrl animated:YES completion:nil];
                     
                 }
                 
