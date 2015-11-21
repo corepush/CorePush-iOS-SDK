@@ -211,11 +211,11 @@ CorePushManager#setMultiCategoryIds で カテゴリIDのディクショナリ�
 
 	//1:地域、2:性別 3:年代 4:好きなジャンル(複数選択可の場合)
 	 NSMutableDictionary* multiCategoryIds = [NSMutableDictionary dictionary];
-	 [multiCategoryDictionary setObject:[NSArray arrayWithObjects:@"神奈川",nil] forKey:@"1"];         //地域が「神奈川」の場合
-	 [multiCategoryDictionary setObject:[NSArray arrayWithObjects:@"男性",nil] forKey:@"2"];           //性別が「男性」の場合
-	 [multiCategoryDictionary setObject:[NSArray arrayWithObjects:@"20代",nil] forKey:@"3"];           //年代が「男性」の場合
-	 [multiCategoryDictionary setObject:[NSArray arrayWithObjects:@"音楽", @"読書", nil] forKey:@"4"];  //好きなジャンルが「音楽」と「読書」の場合
-	[[CorePushManager shared] setMultiCategoryIds:multiCategoryids];
+	 [multiCategoryIds setObject:[NSArray arrayWithObjects:@"神奈川",nil] forKey:@"1"];         //地域が「神奈川」の場合
+	 [multiCategoryIds setObject:[NSArray arrayWithObjects:@"男性",nil] forKey:@"2"];           //性別が「男性」の場合
+	 [multiCategoryIds setObject:[NSArray arrayWithObjects:@"20代",nil] forKey:@"3"];           //年代が「男性」の場合
+	 [multiCategoryIds setObject:[NSArray arrayWithObjects:@"音楽", @"読書", nil] forKey:@"4"];  //好きなジャンルが「音楽」と「読書」の場合
+	[[CorePushManager shared] setMultiCategoryIds:multiCategoryIds];
 
 上記カテゴリの設定後にデバイストークンを送信した場合、設定したcategory_id パラメータの値をCORE PUSHサーバにPOSTします。
 (1次元カテゴリと2次元カテゴリの両方が設定されている場合、category_id パラメータには２次元カテゴリの設定が優先されます。category_idパラメータを設定しない場合のデフォルト値は 1 になります。)
