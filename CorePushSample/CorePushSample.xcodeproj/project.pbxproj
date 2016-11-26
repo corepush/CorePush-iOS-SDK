@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		420EF83D15C77E0F0025E920 /* CorePush.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 420EF83C15C77E0F0025E920 /* CorePush.framework */; };
-		425305851BAE5EE3006D8E2E /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 425305841BAE5EE3006D8E2E /* Default-568h@2x.png */; settings = {ASSET_TAGS = (); }; };
+		425305851BAE5EE3006D8E2E /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 425305841BAE5EE3006D8E2E /* Default-568h@2x.png */; };
+		42706B401DDF2D8E009F8473 /* CorePush.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42706B3F1DDF2D8E009F8473 /* CorePush.framework */; };
+		42706B451DDF39CB009F8473 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42706B441DDF39CB009F8473 /* Security.framework */; };
 		429441241669110F00D2E36F /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 429441231669110F00D2E36F /* CoreLocation.framework */; };
 		86ED473B14B188A4000F6001 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86ED473A14B188A4000F6001 /* UIKit.framework */; };
 		86ED473D14B188A4000F6001 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86ED473C14B188A4000F6001 /* Foundation.framework */; };
@@ -21,8 +22,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		420EF83C15C77E0F0025E920 /* CorePush.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CorePush.framework; path = ../SDK/CorePush.framework; sourceTree = "<group>"; };
 		425305841BAE5EE3006D8E2E /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		42706B3F1DDF2D8E009F8473 /* CorePush.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CorePush.framework; sourceTree = "<group>"; };
+		42706B441DDF39CB009F8473 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		429441231669110F00D2E36F /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		86ED473614B188A4000F6001 /* CorePushSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CorePushSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		86ED473A14B188A4000F6001 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -44,10 +46,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42706B451DDF39CB009F8473 /* Security.framework in Frameworks */,
 				429441241669110F00D2E36F /* CoreLocation.framework in Frameworks */,
-				420EF83D15C77E0F0025E920 /* CorePush.framework in Frameworks */,
 				86ED473B14B188A4000F6001 /* UIKit.framework in Frameworks */,
 				86ED473D14B188A4000F6001 /* Foundation.framework in Frameworks */,
+				42706B401DDF2D8E009F8473 /* CorePush.framework in Frameworks */,
 				86ED473F14B188A4000F6001 /* CoreGraphics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -76,8 +79,9 @@
 		86ED473914B188A4000F6001 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				42706B441DDF39CB009F8473 /* Security.framework */,
+				42706B3F1DDF2D8E009F8473 /* CorePush.framework */,
 				429441231669110F00D2E36F /* CoreLocation.framework */,
-				420EF83C15C77E0F0025E920 /* CorePush.framework */,
 				86ED473A14B188A4000F6001 /* UIKit.framework */,
 				86ED473C14B188A4000F6001 /* Foundation.framework */,
 				86ED473E14B188A4000F6001 /* CoreGraphics.framework */,
@@ -137,6 +141,11 @@
 			attributes = {
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "株式会社ブレスサービス";
+				TargetAttributes = {
+					86ED473514B188A4000F6001 = {
+						ProvisioningStyle = Automatic;
+					};
+				};
 			};
 			buildConfigurationList = 86ED473014B188A4000F6001 /* Build configuration list for PBXProject "CorePushSample" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -282,12 +291,14 @@
 					armv7s,
 				);
 				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/CorePushSample\"",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
 					"\"$(SRCROOT)/../SDK\"",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CorePushSample/CorePushSample-Prefix.pch";
@@ -312,12 +323,14 @@
 					armv7s,
 				);
 				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/CorePushSample\"",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
 					"\"$(SRCROOT)/../SDK\"",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CorePushSample/CorePushSample-Prefix.pch";

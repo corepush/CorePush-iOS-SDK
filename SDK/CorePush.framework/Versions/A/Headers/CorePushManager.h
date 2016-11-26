@@ -22,19 +22,19 @@
  * アプリがバックグランドで動作中に通知からアプリを起動した時に CorePushManager#handleRemoteNotification から呼び出されます。
  * @param userInfo 通知情報を含むオブジェクト
  */
-- (void)handleBackgroundNotification:(NSDictionary*)userInfo;
+- (void)handleBackgroundNotification:(nonnull NSDictionary*)userInfo;
 
 /**
  * アプリがフォアグランドで動作中に通知を受信した時に CorePushManager#handleRemoteNotification から呼び出されます。
  * @param userInfo 通知情報を含むオブジェクト
  */
-- (void)handleForegroundNotifcation:(NSDictionary*)userInfo;
+- (void)handleForegroundNotifcation:(nonnull NSDictionary*)userInfo;
 
 /**
  * アプリのプロセスが起動していない状態で通知からアプリを起動した時に CorePushManager#handleLaunchingNotificationWithOption から呼び出されます。<br>
  * @param userInfo 通知情報を含むオブジェクト
  */
-- (void)handleLaunchingNotification:(NSDictionary*)userInfo;
+- (void)handleLaunchingNotification:(nonnull NSDictionary*)userInfo;
 
 @end
 
@@ -58,26 +58,27 @@
     CLLocationManager *locationManager_;
 }
 
-@property (nonatomic, retain) NSString* configKey;
+@property (nonatomic, retain, nullable) NSString* configKey;
 @property (nonatomic, assign) BOOL pushEnabled;
 @property (nonatomic, assign) BOOL debugEnabled;
 @property (nonatomic, assign) BOOL deviceIdEnabled;
 @property (nonatomic, assign) BOOL deviceIdHashEnabled;
 @property (nonatomic, assign) BOOL locationServiceEnabled;
-@property (nonatomic, retain) NSMutableArray* categoryIds;
-@property (nonatomic, retain) NSMutableDictionary *multiCategoryIds;
-@property (nonatomic, retain) NSString* appUserId;
-@property (nonatomic, retain) CLLocation* currentLocation;
-@property (nonatomic, retain) CLLocationManager *locationManager;
+@property (nonatomic, retain, nullable) NSMutableArray* categoryIds;
+@property (nonatomic, retain, nullable) NSMutableDictionary *multiCategoryIds;
+@property (nonatomic, retain, nullable) NSString* appUserId;
+@property (nonatomic, retain, nullable) CLLocation* currentLocation;
+@property (nonatomic, retain, nullable) CLLocationManager *locationManager;
+@property (nonatomic, readonly, nonnull) NSString* uuid;
 
 
 /// CorePushManagerDelegateプロトコルを実装したクラス
-@property (nonatomic, assign) id<CorePushManagerDelegate> delegate;
+@property (nonatomic, assign, nullable) id<CorePushManagerDelegate> delegate;
 
 /**
  * シングルトンインスタンスの生成
  */
-+ (id)shared;
++ (nonnull id)shared;
 
 /**
  * アプリケーションアイコンのバッジ数をリセットする
@@ -92,9 +93,9 @@
 
 /**
  * CORE PUSHのコンフィグキーを設定する
- * @param　configKey CORE PUSHのコンフィグキーの値。<br>指定したコンフィグキーは UserDefaultsに CorePushConfigKey のキーで保存されます。
+ * @param configKey CORE PUSHのコンフィグキーの値。<br>指定したコンフィグキーは UserDefaultsに CorePushConfigKey のキーで保存されます。
  */
-- (void)setConfigKey:(NSString *)configKey;
+- (void)setConfigKey:(nullable NSString *)configKey;
 
 /**
  * CORE PUSHの通知設定の有無を設定する
@@ -104,13 +105,13 @@
 
 /**
  * CORE PUSHのデバッグログを出力する
- * @param debugEnable デバッグログを出力する場合は YES、出力しない場合は NOを設定する
+ * @param debugEnabled デバッグログを出力する場合は YES、出力しない場合は NOを設定する
  */
 - (void)setDebugEnabled:(BOOL)debugEnabled;
 
 /**
  * デバイスIDをCORE PUSHサーバに送信するかを設定する。
- * @param deviceIdEnabled。デバイスIDを送信する場合は YES、送信しない場合は NOを設定する。デフォルト値は NO。
+ * @param deviceIdEnabled デバイスIDを送信する場合は YES、送信しない場合は NOを設定する。デフォルト値は NO。
  */
 - (void)setDeviceIdEnabled:(BOOL)deviceIdEnabled;
 
@@ -124,20 +125,20 @@
  * CORE PUSHのカテゴリIDを設定する。
  * @param categoryIds カテゴリIDの配列
  */
-- (void)setCategoryIds:(NSMutableArray *)categoryIds;
+- (void)setCategoryIds:(nullable NSMutableArray *)categoryIds;
 
 /**
  * CORE PUSHのカテゴリIDを設定する。
- * @param categoryIds カテゴリIDのディクショナリ。カテゴリIDをキーにサブカテゴリID
+ * @param multiCategoryIds カテゴリIDのディクショナリ。カテゴリIDをキーにサブカテゴリID
  * の配列を指定。
  */
-- (void)setMultiCategoryIds:(NSMutableDictionary *)multiCategoryIds;
+- (void)setMultiCategoryIds:(nullable NSMutableDictionary *)multiCategoryIds;
 
 /**
  * CORE PUSHのユーザーIDを設定する。
- * @param アプリのユーザーID。
+ * @param appUserId アプリのユーザーID。
  */
-- (void)setAppUserId:(NSString*)appUserId;
+- (void)setAppUserId:(nullable NSString*)appUserId;
 
 
 /**
@@ -165,7 +166,7 @@
  * デバイストークンの登録が失敗した場合は CorePushManagerRegisterTokenRequestFailNotification の通知キーで NSNotificationCenterに通知を行います。<br>
  * @param token APNSサーバから取得したデバイストークンのバイト列。
  */
-- (void)registerDeviceToken:(NSData *)token;
+- (void)registerDeviceToken:(nonnull NSData *)token;
 
 
 /**
@@ -176,7 +177,7 @@
  * デバイストークンの登録が失敗した場合は CorePushManagerRegisterTokenRequestFailNotification の通知キーで NSNotificationCenterに通知を行います。<br>
  * @param token APNSサーバから取得したデバイストークンの文字列。
  */
-- (void)registerDeviceTokenString:(NSString *)token;
+- (void)registerDeviceTokenString:(nonnull NSString *)token;
 
 
 /**
@@ -193,7 +194,7 @@
  * @param attributes ユーザー属性の配列
  * @param url ユーザー属性を送信するurl
  */
-- (void)registerUserAttributes:(NSArray*)attributes api:(NSString*)url;
+- (void)registerUserAttributes:(nonnull NSArray*)attributes api:(nonnull NSString*)url;
 
 /**
  * アプリがフォアグランド・バックグランド状態で動作中に通知を受信した時の動作を定義する。<br>
@@ -202,7 +203,7 @@
  * フォアグランド状態で通知を受信した場合、CorePushManagerDelegate#handleForegroundNotificationが呼び出されます。
  * @param userInfo 通知の情報を含むオブジェクト
  */
-- (void)handleRemoteNotification:(NSDictionary*)userInfo;
+- (void)handleRemoteNotification:(nonnull NSDictionary*)userInfo;
 
 
 /**
@@ -211,6 +212,6 @@
  * 呼び出し、存在しない場合は何も行わない。
  * @param launchOptions 起動オプション。UIApplicationLaunchOptionsRemoteNotificationKeyをキーにUserInfoオブジェクトを取得する
  */
-- (void)handleLaunchingNotificationWithOption:(NSDictionary*)launchOptions;
+- (void)handleLaunchingNotificationWithOption:(nonnull NSDictionary*)launchOptions;
 
 @end

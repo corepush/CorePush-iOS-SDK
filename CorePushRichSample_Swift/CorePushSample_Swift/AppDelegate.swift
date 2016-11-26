@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // String型にキャストして使用してください。
     let CONFIG_KEY: NSString = "XXXXXXXXXXXXXXXXX"
 
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         //*********************************************************************************************
         // CorePushManagerクラスの初期化
@@ -41,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // launchOptionsに通知のUserInfoが存在する場合は、CorePushManagerDelegate#handleLaunchingNotificationを
         // 呼び出し、存在しない場合は何も行わない。
         //*********************************************************************************************
-        corePushManager.handleLaunchingNotificationWithOption(launchOptions)
+        corePushManager.handleLaunchingNotification(withOption: launchOptions!)
         
         //*********************************************************************************************
         // アイコンバッジ数をリセットする
@@ -59,7 +59,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     // 通知サービスの登録成功時に呼ばれる。
-    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         
         //*********************************************************************************************
         // APNSの通知登録の成功時に呼び出される。デバイストークンをcore-aspサーバに登録する。
@@ -76,17 +76,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     // 通知サービスの登録失敗時に呼ばれる。
-    func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         
         //*********************************************************************************************
         // APNSの通知登録の失敗時に呼び出される。
         // 通知サービスの登録に失敗する場合は、iPhoneシミュレータでアプリを実行しているかプッシュ通知が有効化されていない
         // プロビジョニングでビルドしたアプリを実行している可能性があります。
         //*********************************************************************************************
-        NSLog("error: \(error.description)")
+        NSLog("error: \((error as NSError).description)")
     }
     
-    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
         
         //*********************************************************************************************
         // アプリがフォアグランド・バックグランド状態で動作中に通知を受信した時の動作を定義する。
@@ -105,7 +105,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // iOS8以上の場合に呼び出される。
     @available(iOS 8.0, *)
-    func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
+    func application(_ application: UIApplication, didRegister notificationSettings: UIUserNotificationSettings) {
         
         //    let corePushManager = CorePushManager.shared() as! CorePushManager
         //    corePushManager.deviceIdEnabled = true
@@ -119,23 +119,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         application.registerForRemoteNotifications()
     }
     
-    func applicationDidBecomeActive(application: UIApplication) {
+    func applicationDidBecomeActive(_ application: UIApplication) {
         //*********************************************************************************************
         // アイコンバッジ数をリセットする
         //*********************************************************************************************
         CorePushManager.resetApplicationIconBadgeNumber()
     }
     
-    func applicationDidEnterBackground(application: UIApplication) {
+    func applicationDidEnterBackground(_ application: UIApplication) {
         
     }
 
-    func applicationWillEnterForeground(application: UIApplication) {
+    func applicationWillEnterForeground(_ application: UIApplication) {
         let corePushManager = CorePushManager.shared() as! CorePushManager
         if corePushManager.pushEnabled {
             //フォアグランド起動時にデバイストークンを送信
-            let defaults = NSUserDefaults.standardUserDefaults()
-            if let deviceToken = defaults.objectForKey(CorePushDeviceTokenKey) as? String where deviceToken != "" {
+            let defaults = UserDefaults.standard
+            if let deviceToken = defaults.object(forKey: CorePushDeviceTokenKey) as? String, deviceToken != "" {
                 corePushManager.registerDeviceTokenString(deviceToken)
             }
         }
@@ -147,7 +147,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension AppDelegate: CorePushManagerDelegate {
     
-    func handleBackgroundNotification(userInfo: [NSObject : AnyObject]!) {
+    func handleBackgroundNotification(_ userInfo: [AnyHashable: Any]) {
         
         //*********************************************************************************************
         //    //アプリがバックグランドで動作中に通知からアプリを起動した時の動作を定義
@@ -186,7 +186,7 @@ extension AppDelegate: CorePushManagerDelegate {
         //*********************************************************************************************
     }
     
-    func handleForegroundNotifcation(userInfo: [NSObject : AnyObject]!) {
+    func handleForegroundNotifcation(_ userInfo: [AnyHashable: Any]) {
         
         //*********************************************************************************************
         //    //アプリがフォアグランドで動作中に通知を受信した時の動作を定義
@@ -241,7 +241,7 @@ extension AppDelegate: CorePushManagerDelegate {
         //*******************************************************************************************s
     }
     
-    func handleLaunchingNotification(userInfo: [NSObject : AnyObject]!) {
+    func handleLaunchingNotification(_ userInfo: [AnyHashable: Any]) {
         
         //*********************************************************************************************
         //    //アプリが起動中でない状態で通知からアプリを起動した時の動作を定義
@@ -297,72 +297,59 @@ extension AppDelegate: CorePushManagerDelegate {
 
 extension AppDelegate: PKAddPassesViewControllerDelegate {
     
-    func addPassesViewControllerDidFinish(controller: PKAddPassesViewController) {
-        self.window?.rootViewController?.dismissViewControllerAnimated(true, completion: nil)
+    func addPassesViewControllerDidFinish(_ controller: PKAddPassesViewController) {
+        self.window?.rootViewController?.dismiss(animated: true, completion: nil)
     }
     
-    func safariLaunch(button: UIButton) {
+    func safariLaunch(_ button: UIButton) {
         let alert = UIAlertView(title: "確認", message: "safariを起動します。\nよろしいでしょうか。", delegate: self, cancelButtonTitle: "キャンセル", otherButtonTitles: "OK")
         alert.tag = 9
         alert.show()
     }
     
     func showPassbook() {
-       
-        let version = Float(UIDevice.currentDevice().systemVersion)
-        
-        // OSのバージョンが6以上の場合、Passbookを表示
-        if version >= 6.0 {
-            if PKPassLibrary.isPassLibraryAvailable() {
-             
-                UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-                    
-                    if let passbookUrl = self.passbookUrl {
-                        let pkPassUrl = NSURL(string: passbookUrl)!
-                        let urlRequest = NSMutableURLRequest(URL: pkPassUrl)
-                        urlRequest.HTTPMethod = "GET"
-                        let userAgent = "iPhone OS 6"
-                        urlRequest.setValue(userAgent, forKey: "User-Agent")
-                        var error: NSError?
-                        do {
-                            let data = try NSURLConnection.sendSynchronousRequest(urlRequest, returningResponse: nil)
-                            
-                            let pkPass = PKPass(data: data, error: &error)
-                            
-                            if error != nil {
-                                let addCtrl = PKAddPassesViewController(pass: pkPass)
-                                addCtrl.delegate = self
-                                self.window?.rootViewController?.presentViewController(addCtrl, animated: true, completion: nil)
-                            }
-                            
-                        } catch _ {
-                            NSLog("connection error.")
+        if PKPassLibrary.isPassLibraryAvailable() {
+            
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+            DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async {
+                
+                if let passbookUrl = self.passbookUrl {
+                    let pkPassUrl = URL(string: passbookUrl)!
+                    let urlRequest = NSMutableURLRequest(url: pkPassUrl)
+                    urlRequest.httpMethod = "GET"
+                    let userAgent = "iPhone OS 6"
+                    urlRequest.setValue(userAgent, forKey: "User-Agent")
+                    var error: NSError?
+                    do {
+                        let data = try NSURLConnection.sendSynchronousRequest(urlRequest as URLRequest, returning: nil)
+                        
+                        let pkPass = PKPass(data: data, error: &error)
+                        
+                        if error != nil {
+                            let addCtrl = PKAddPassesViewController(pass: pkPass)
+                            addCtrl.delegate = self
+                            self.window?.rootViewController?.present(addCtrl, animated: true, completion: nil)
                         }
+                        
+                    } catch _ {
+                        NSLog("connection error.")
                     }
-                    
-                    dispatch_async(dispatch_get_main_queue()) {
-                        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
-                    }
-     
                 }
-            } else {
-
-
-            }
-        } else {
-            //OSのバージョンが6.0未満の場合の処理を記述
-            if let passbookUrl = self.passbookUrl {
-                UIApplication.sharedApplication().openURL(NSURL(string: passbookUrl)!)
+                
+                DispatchQueue.main.async {
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                }
+                
             }
         }
+        
     }
 }
 
 // MARK: - アラートのデリゲート
 
 extension AppDelegate: UIAlertViewDelegate {
-    func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
+    func alertView(_ alertView: UIAlertView, clickedButtonAt buttonIndex: Int) {
         if alertView.tag == 8 && buttonIndex == 1 {
             
             //PassbookのURLを表示
@@ -371,7 +358,7 @@ extension AppDelegate: UIAlertViewDelegate {
             
             //Safariでリッチ通知のURLを表示
             if let richUrl = self.richUrl {
-                UIApplication.sharedApplication().openURL(NSURL(string: richUrl)!)
+                UIApplication.shared.openURL(URL(string: richUrl)!)
                 popupView?.hide()
             }
         }
@@ -382,41 +369,41 @@ extension AppDelegate {
     
     //リッチ通知の画面を表示
     func showPopupView() {
-        guard let window = UIApplication.sharedApplication().delegate?.window! else { return }
+        guard let window = UIApplication.shared.delegate?.window! else { return }
         
         guard let urlAddress = self.richUrl else {
             return
         }
 
-        let popupView = CorePushPopupView(frame: CGRectMake(0, 100, 300, 400), withParentView: window)
+        let popupView = CorePushPopupView(frame: CGRect(x: 0, y: 100, width: 300, height: 400), withParentView: window)
         self.popupView = popupView
-        if let info = NSBundle.mainBundle().infoDictionary, let appName = info["CFBundleDisplayName"] as? String {
-            popupView.titleBarText = "\(appName)からのお知らせ"
-            popupView.center = window.center
-            popupView.buildLayoutSubViews()
+        if let info = Bundle.main.infoDictionary, let appName = info["CFBundleDisplayName"] as? String {
+            popupView?.titleBarText = "\(appName)からのお知らせ"
+            popupView?.center = window.center
+            popupView?.buildLayoutSubViews()
             
-            let rect = CGRectMake(0, 0,
-                popupView.contentView.frame.size.width,
-                popupView.contentView.frame.size.height)
+            let rect = CGRect(x: 0, y: 0,
+                width: (popupView?.contentView.frame.size.width)!,
+                height: (popupView?.contentView.frame.size.height)!)
             let webView = UIWebView(frame: rect)
          
-            let url = NSURL(string: urlAddress)!
-            let requestObj = NSURLRequest(URL: url)
+            let url = URL(string: urlAddress)!
+            let requestObj = URLRequest(url: url)
             webView.loadRequest(requestObj)
             webView.scalesPageToFit = true
-            popupView.contentView.addSubview(webView)
+            popupView?.contentView.addSubview(webView)
             
-            let safariLaunchButton = UIButton(type: .Custom)
-            safariLaunchButton.frame = CGRectMake(0, 0,
-                popupView.contentView.frame.size.width,
-                popupView.contentView.frame.size.height)
+            let safariLaunchButton = UIButton(type: .custom)
+            safariLaunchButton.frame = CGRect(x: 0, y: 0,
+                width: (popupView?.contentView.frame.size.width)!,
+                height: (popupView?.contentView.frame.size.height)!)
             
-            safariLaunchButton.backgroundColor = UIColor.clearColor()
-            safariLaunchButton.addTarget(self, action: "safariLaunch:", forControlEvents: .TouchUpInside)
+            safariLaunchButton.backgroundColor = UIColor.clear
+            safariLaunchButton.addTarget(self, action: #selector(AppDelegate.safariLaunch(_:)), for: .touchUpInside)
           
-            popupView.contentView.addSubview(safariLaunchButton)
+            popupView?.contentView.addSubview(safariLaunchButton)
           
-            popupView.show()
+            popupView?.show()
         }
     }
 }

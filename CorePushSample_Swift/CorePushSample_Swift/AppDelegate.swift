@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let CONFIG_KEY: NSString = "XXXXXXXXXXXXXXXXX"
 
 
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         //*********************************************************************************************
         // CorePushManagerクラスの初期化
@@ -38,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // launchOptionsに通知のUserInfoが存在する場合は、CorePushManagerDelegate#handleLaunchingNotificationを
         // 呼び出し、存在しない場合は何も行わない。
         //*********************************************************************************************
-        corePushManager.handleLaunchingNotificationWithOption(launchOptions)
+        corePushManager.handleLaunchingNotification(withOption: launchOptions!)
         
         //*********************************************************************************************
         // アイコンバッジ数をリセットする
@@ -49,7 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     // 通知サービスの登録成功時に呼ばれる。
-    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         
         //*********************************************************************************************
         // APNSの通知登録の成功時に呼び出される。デバイストークンをcore-aspサーバに登録する。
@@ -59,17 +59,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     // 通知サービスの登録失敗時に呼ばれる。
-    func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         
         //*********************************************************************************************
         // APNSの通知登録の失敗時に呼び出される。
         // 通知サービスの登録に失敗する場合は、iPhoneシミュレータでアプリを実行しているかプッシュ通知が有効化されていない
         // プロビジョニングでビルドしたアプリを実行している可能性があります。
         //*********************************************************************************************
-        NSLog("error: \(error.description)")
+        NSLog("error: \((error as NSError).description)")
     }
     
-    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
         
         //*********************************************************************************************
         // アプリがフォアグランド・バックグランド状態で動作中に通知を受信した時の動作を定義する。
@@ -88,14 +88,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // iOS8以上の場合に呼び出される。
     @available(iOS 8.0, *)
-    func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
+    func application(_ application: UIApplication, didRegister notificationSettings: UIUserNotificationSettings) {
         
         // iOS8以上で デバイストークン登録用の UIApplication#application:didRegisterForRemoteNotificationsWithDeviceToken メソッドが呼び出されるように
         // UIApplication#registerForRemoteNotification を明示的に呼びだしてください。
         application.registerForRemoteNotifications()
     }
     
-    func applicationDidBecomeActive(application: UIApplication) {
+    func applicationDidBecomeActive(_ application: UIApplication) {
         //*********************************************************************************************
         // アイコンバッジ数をリセットする
         //*********************************************************************************************
@@ -108,7 +108,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension AppDelegate: CorePushManagerDelegate {
     
-    func handleBackgroundNotification(userInfo: [NSObject : AnyObject]!) {
+    func handleBackgroundNotification(_ userInfo: [AnyHashable: Any]) {
         
         //*********************************************************************************************
         // アプリがバックグランドで動作中に通知からアプリを起動した時の動作を定義
@@ -123,7 +123,7 @@ extension AppDelegate: CorePushManagerDelegate {
         //*********************************************************************************************
     }
     
-    func handleForegroundNotifcation(userInfo: [NSObject : AnyObject]!) {
+    func handleForegroundNotifcation(_ userInfo: [AnyHashable: Any]) {
         
         //*********************************************************************************************
         // アプリがフォアグランドで動作中に通知を受信した時の動作を定義
@@ -151,7 +151,7 @@ extension AppDelegate: CorePushManagerDelegate {
         //*******************************************************************************************s
     }
     
-    func handleLaunchingNotification(userInfo: [NSObject : AnyObject]!) {
+    func handleLaunchingNotification(_ userInfo: [AnyHashable: Any]) {
         
         //*********************************************************************************************
         // アプリが起動中でない状態で通知からアプリを起動した場合に呼び出される。

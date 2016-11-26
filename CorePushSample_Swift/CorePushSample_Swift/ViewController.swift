@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     @IBAction func valueChangeNotificationSwitch() {
         let corePushManager = CorePushManager.shared() as! CorePushManager
         
-        if notificationSwitch.on {
+        if notificationSwitch.isOn {
             //*********************************************************************************************
             // プッシュ通知の有効化フラグをYESに設定
             //*********************************************************************************************
@@ -42,7 +42,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         //*********************************************************************************************
@@ -54,14 +54,14 @@ class ViewController: UIViewController {
         //*********************************************************************************************
         
         let corePushManager = CorePushManager.shared() as! CorePushManager
-        if corePushManager.pushEnabled.boolValue {
-            notificationSwitch.on = true
+        if corePushManager.pushEnabled {
+            notificationSwitch.isOn = true
         } else {
-            notificationSwitch.on = false
+            notificationSwitch.isOn = false
         }
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
      
         

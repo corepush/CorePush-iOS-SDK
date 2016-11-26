@@ -68,3 +68,6 @@ extern NSString* CorePushCategoryIdsKey;
 /// 2次元カテゴリIDを保持するための UserDefaults のキー
 extern NSString* CorePushMultiCategoryIdsKey;
 
+// UUIDのUserDefaults のキー
+extern NSString* CorePushUUID;
+

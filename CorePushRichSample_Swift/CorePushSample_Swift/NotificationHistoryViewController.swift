@@ -20,26 +20,27 @@ class NotificationHistoryViewController: UIViewController {
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
-        self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: NotificationHistoryViewController.CellIdentifier)
+        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: NotificationHistoryViewController.CellIdentifier)
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         let historyManager = CorePushNotificationHistoryManager.shared() as! CorePushNotificationHistoryManager
         historyManager.delegate = self
         
         // 通知履歴一覧を取得する
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         historyManager.requestNotificationHistory()
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
     }
     
     func setUnreadNumber() {
-        let unreadNumber = CorePushNotificationHistoryManager.shared().getUnreadNumber()
+        let historyManager = CorePushNotificationHistoryManager.shared() as! CorePushNotificationHistoryManager
+        let unreadNumber = historyManager.getUnreadNumber()
         if unreadNumber > 0 {
             self.navigationController?.tabBarItem.badgeValue = "\(unreadNumber)"
         } else {
@@ -49,45 +50,44 @@ class NotificationHistoryViewController: UIViewController {
 }
 
 extension NotificationHistoryViewController: UITableViewDelegate {
-    
-}
-
-extension NotificationHistoryViewController: UITableViewDataSource {
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let historyManager = CorePushNotificationHistoryManager.shared()
-        let historyModelArray = historyManager.notificationHistoryModelArray as NSMutableArray
-        return historyModelArray.count
-    }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-
-        let cell = tableView.dequeueReusableCellWithIdentifier(NotificationHistoryViewController.CellIdentifier, forIndexPath: indexPath)
-      
-        let historyManager = CorePushNotificationHistoryManager.shared()
-        let historyModelArray = historyManager.notificationHistoryModelArray as NSMutableArray
-        let historyModel = historyModelArray.objectAtIndex(indexPath.row)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        cell.textLabel?.text = historyModel.message
+        tableView.deselectRow(at: indexPath, animated: true)
         
-        return cell
-    }
-    
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        
-        let historyManager = CorePushNotificationHistoryManager.shared()
+        let historyManager = CorePushNotificationHistoryManager.shared() as! CorePushNotificationHistoryManager
         let historyModelArray = historyManager.notificationHistoryModelArray as NSMutableArray
-        let historyModel = historyModelArray.objectAtIndex(indexPath.row)
+        let historyModel = historyModelArray.object(at: indexPath.row) as! CorePushNotificationHistoryModel
         let historyId = historyModel.historyId
-   
+        
         //タップされた場合、該当する通知メッセージを既読に設定する。
         historyManager.setRead(historyId)
         
         //未読数をタブに設定する。
         setUnreadNumber()
         
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
         tableView.reloadData()
+    }
+}
+
+extension NotificationHistoryViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let historyManager = CorePushNotificationHistoryManager.shared() as! CorePushNotificationHistoryManager
+        let historyModelArray = historyManager.notificationHistoryModelArray as NSMutableArray
+        return historyModelArray.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
+        let cell = tableView.dequeueReusableCell(withIdentifier: NotificationHistoryViewController.CellIdentifier, for: indexPath)
+      
+        let historyManager = CorePushNotificationHistoryManager.shared() as! CorePushNotificationHistoryManager
+        let historyModelArray = historyManager.notificationHistoryModelArray as NSMutableArray
+        let historyModel = historyModelArray.object(at: indexPath.row) as! CorePushNotificationHistoryModel
+        
+        cell.textLabel?.text = historyModel.message
+        
+        return cell
     }
 }
 
@@ -96,12 +96,12 @@ extension NotificationHistoryViewController: CorePushNotificationHistoryManagerD
     //通知履歴の取得成功
     func notificationHistoryManagerSuccess() {
         setUnreadNumber()
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
         tableView.reloadData()
     }
     
     //通知履歴の取得失敗
     func notificationHistoryManagerFail() {
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
     }
 }
